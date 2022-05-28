@@ -8,7 +8,7 @@ const Test = () => {
         <div>
             <SuperInputText/>
             <SuperButton/>
-            <SuperCheckbox>text </SuperCheckbox>
+            <SuperCheckbox>text</SuperCheckbox>
         </div>
     );
 };
