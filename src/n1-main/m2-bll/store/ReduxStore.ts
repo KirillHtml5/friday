@@ -2,13 +2,13 @@ import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import LoginReducer from "../reducers/Login-reducer";
 import NewPasswordReducer from "../reducers/New-Password-reducer";
 import ProfileReducer from "../reducers/Profile-reducer";
-import RegistrationReducer from "../reducers/Registration-reducer";
+import {registrationReducer} from "../../../n2-common/c1-auth/registration/r2-bll/registrationReducer";
 import RecoveryReducer from "../reducers/Recovery-reducer";
 import thunk from "redux-thunk";
 
 let rootReducer = combineReducers({
     login: LoginReducer,
-    registration: RegistrationReducer,
+    registration: registrationReducer,
     profile: ProfileReducer,
     recoveryPassword: RecoveryReducer,
     newPassword: NewPasswordReducer
