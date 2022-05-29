@@ -53,7 +53,7 @@ export const Registration: FC<RegistrationPropsType> = (
                 <button
                     type={"submit"}
                     onClick={signUp}
-                    disabled={loading || password !== password2}
+                    disabled={loading}
                 >
                     Register
                 </button>
