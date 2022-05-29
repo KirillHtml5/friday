@@ -1,5 +1,5 @@
-import {Dispatch} from "redux"
 import {registrationAPI} from "../r3-dal/registrationAPI";
+import {AppThunk} from "../../../../n1-main/m2-bll/store/ReduxStore";
 
 const SET_LOADING = 'Registration/SET_LOADING'
 const SET_ERROR = 'Registration/SET_ERROR'
@@ -25,8 +25,8 @@ export const setLoading = (loading: boolean) => ({type: SET_LOADING, loading} as
 export const setError = (error: null | string) => ({type: SET_ERROR, error} as const)
 
 //thunks
-export const register = (email: string, password: string) => {
-    return async (dispatch: Dispatch) => {
+export const register = (email: string, password: string): AppThunk => {
+    return async (dispatch) => {
         dispatch(setLoading(true))
         try {
             await registrationAPI.signUp(email, password)
@@ -45,6 +45,6 @@ type RegistrationInitState = {
     loading: boolean
     error: null | string
 }
-type RegistrationActionsType =
+export type RegistrationActionsType =
     | ReturnType<typeof setLoading>
     | ReturnType<typeof setError>
