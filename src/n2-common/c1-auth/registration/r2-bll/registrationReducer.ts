@@ -1,3 +1,6 @@
+import {Dispatch} from "redux"
+import {registrationAPI} from "../r3-dal/registrationAPI";
+
 const SET_LOADING = 'Registration/SET_LOADING'
 const SET_ERROR = 'Registration/SET_ERROR'
 
@@ -22,6 +25,20 @@ export const setLoading = (loading: boolean) => ({type: SET_LOADING, loading} as
 export const setError = (error: null | string) => ({type: SET_ERROR, error} as const)
 
 //thunks
+export const register = (email: string, password: string) => {
+    return async (dispatch: Dispatch) => {
+        dispatch(setLoading(true))
+        try {
+            const res = await registrationAPI.signUp(email, password)
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            dispatch(setError(error))
+        }
+        dispatch(setLoading(false))
+    }
+}
 
 //types
 type RegistrationInitState = {
