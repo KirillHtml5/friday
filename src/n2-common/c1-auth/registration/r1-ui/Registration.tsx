@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FC} from 'react'
+import { NavLink } from 'react-router-dom'
 import s from './Registration.module.css'
 
 type RegistrationPropsType = {
@@ -46,7 +47,9 @@ export const Registration: FC<RegistrationPropsType> = (
                    placeholder={"Confirm your password..."}
             />
             <div className={s.buttonsBlock}>
-                <button>Cancel</button>
+                <NavLink to="/login">
+                    Cancel
+                </NavLink>
                 <button
                     type={"submit"}
                     onClick={signUp}
