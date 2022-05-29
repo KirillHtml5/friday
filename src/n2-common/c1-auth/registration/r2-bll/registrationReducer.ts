@@ -29,9 +29,9 @@ export const register = (email: string, password: string) => {
     return async (dispatch: Dispatch) => {
         dispatch(setLoading(true))
         try {
-            const res = await registrationAPI.signUp(email, password)
+            await registrationAPI.signUp(email, password)
         } catch (e: any) {
-            const error = e.response
+            const error = e.response.data
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
             dispatch(setError(error))
