@@ -1,5 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import thunkMiddleware from 'redux-thunk'
+import {combineReducers, legacy_createStore} from "redux";
 import LoginReducer from "../reducers/Login-reducer";
 import NewPasswordReducer from "../reducers/New-Password-reducer";
 import ProfileReducer from "../reducers/Profile-reducer";
@@ -9,14 +8,14 @@ import ErrorReducer from "../reducers/Error-reducer";
 
 let rootReducer = combineReducers({
     login: LoginReducer,
-    registration: RegistrationReducer,
+    registration: registrationReducer,
     profile: ProfileReducer,
     recoveryPassword: RecoveryReducer,
     newPassword: NewPasswordReducer,
     error: ErrorReducer
 })
 
-let store = legacy_createStore(rootReducer,applyMiddleware(thunkMiddleware))
+let store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
 
 export type ReduxStoreType = typeof store
@@ -24,3 +23,5 @@ export type ReduxRootType = ReturnType<typeof rootReducer>
 
 export default store
 
+type RootActionsType = RegistrationActionsType
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, ReduxRootType, unknown, RootActionsType>
