@@ -1,19 +1,25 @@
-let initialState = {}
-export type initialStateType = typeof initialState
-const ErrorReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
+let initialState = {
+    error:''
+}
+
+
+export type initialStateType = {
+    error?:string
+}
+const ErrorReducer = (state: initialStateType = initialState, action: setErrorACType): initialStateType => {
 
     switch (action.type) {
         case 'SET-ERROR':
             return {
-                ...state
+                ...state,error:action.error
             }
         default:
             return state
     }
 }
-type ActionType = setErrorACType
-type setErrorACType = ReturnType<typeof setErrorAC>
 
-export const setErrorAC = () => ({type: 'SET-ERROR',} as const)
+export type setErrorACType = ReturnType<typeof setErrorAC>
+
+export const setErrorAC = (error:string) => ({type: 'SET-ERROR',error} as const)
 
 export default ErrorReducer

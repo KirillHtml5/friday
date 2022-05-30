@@ -1,5 +1,5 @@
 import {Navigate, Route, Routes} from "react-router-dom"
-import Login from "../../../n2-common/c1-auth/Login";
+import Login from "../../../n2-common/c1-auth/login/Login";
 import NewPassword from "../../../n2-common/c1-auth/NewPassword";
 import Profile from "../../../n2-common/c1-auth/Profile";
 import RecoveryPassword from "../../../n2-common/c1-auth/RecoveryPassword";
