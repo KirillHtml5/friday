@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import SuperEditableSpan from "../n1-main/m1-ui/common/c4-SuperEditableSpan/SuperEditableSpan";
+import SuperEditableSpan from "../../../n1-main/m1-ui/common/c4-SuperEditableSpan/SuperEditableSpan";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserTC, updateUserTC} from "./kirill/k2-bll/profileReducer";
-import {ReduxRootType} from "../n1-main/m2-bll/store/ReduxStore";
+import {getUserTC, updateUserTC} from "../k2-bll/profileReducer";
+import {ReduxRootType} from "../../../n1-main/m2-bll/store/ReduxStore";
 
 /// copy
 const Profile = () => {
