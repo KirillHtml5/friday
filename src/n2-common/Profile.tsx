@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getUserTC, updateUserTC} from "./kirill/k2-bll/profileReducer";
 import {ReduxRootType} from "../n1-main/m2-bll/store/ReduxStore";
 
-
+/// copy
 const Profile = () => {
     // const userName=useSelector<ReduxRootType>((store)=>store.profile)
     const [name, setName] = useState('userName')
