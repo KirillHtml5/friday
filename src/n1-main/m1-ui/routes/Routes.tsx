@@ -1,10 +1,10 @@
 import {Navigate, Route, Routes} from "react-router-dom"
-import Login from "../../../n2-common/c1-auth/Login";
-import NewPassword from "../../../n2-common/c1-auth/NewPassword";
-import Profile from "../../../n2-common/c1-auth/Profile";
-import RecoveryPassword from "../../../n2-common/c1-auth/RecoveryPassword";
+import Profile from "../../../n2-common/Profile";
 import Test from "../../../n2-common/Test";
 import Error404 from "../../../n2-common/Error404";
+import Login from "../../../n2-common/c1-auth/login/Login";
+import RecoveryPassword from "../../../n2-common/c1-auth/RecoveryPassword";
+import NewPassword from "../../../n2-common/c1-auth/NewPassword";
 import {RegistrationContainer} from "../../../n2-common/c1-auth/registration/r1-ui/RegistrationContainer";
 
 const MyRoutes = () => {
