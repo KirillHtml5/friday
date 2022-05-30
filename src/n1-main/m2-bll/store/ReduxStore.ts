@@ -1,4 +1,5 @@
-import {combineReducers, legacy_createStore} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import thunk from 'redux-thunk'
 import LoginReducer from "../reducers/Login-reducer";
 import NewPasswordReducer from "../reducers/New-Password-reducer";
 import ProfileReducer from "../reducers/Profile-reducer";
@@ -14,7 +15,7 @@ let rootReducer = combineReducers({
 
 })
 
-let store = legacy_createStore(rootReducer)
+let store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
 
 export type ReduxStoreType = typeof store
