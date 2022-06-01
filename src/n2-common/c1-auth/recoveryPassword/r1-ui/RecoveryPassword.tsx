@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {ChangeEvent, FC} from 'react'
 import {NavLink} from 'react-router-dom';
 import s from './RecoveryPassword.module.css'
 
+type RecoveryPropsType = {
+    email: string
+    setEmail: (e: ChangeEvent<HTMLInputElement>) => void
+}
 
-export const RecoveryPassword = () => {
+export const RecoveryPassword: FC<RecoveryPropsType> = ({email, setEmail}) => {
     return (
         <div className={s.container}>
             <h1>IT-incubator</h1>
@@ -11,8 +15,8 @@ export const RecoveryPassword = () => {
             <input
                 name={"email"}
                 type={"text"}
-                value={""}
-                // onChange={setEmail}
+                value={email}
+                onChange={setEmail}
                 placeholder={"Enter your email..."}
             />
             <p>
