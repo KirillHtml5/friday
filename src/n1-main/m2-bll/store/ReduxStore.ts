@@ -14,7 +14,7 @@ let rootReducer = combineReducers({
     login: LoginReducer,
     registration: registrationReducer,
     profile: ProfileReducer,
-    recoveryPassword: recoveryReducer,
+    recovery: recoveryReducer,
     newPassword: NewPasswordReducer,
     error: ErrorReducer
 })
