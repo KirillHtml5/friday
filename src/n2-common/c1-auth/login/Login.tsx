@@ -1,43 +1,37 @@
-import React, {useState} from 'react'
+import React, {ChangeEvent, SetStateAction, useState} from 'react'
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
-import {useDispatch, useSelector} from "react-redux";
-import {ReduxRootType} from "../../../n1-main/m2-bll/store/ReduxStore";
-import {Navigate} from 'react-router-dom';
-import {LoginTC, ThunkDispatchActionType} from "../../../n1-main/m2-bll/reducers/Login-reducer";
-import s from './login.module.css'
+import s from './login.module.css';
 
-const Login = () => {
 
-    const isLoggedIn = useSelector<ReduxRootType, boolean>(state => state.login.isLoggedIn)
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [rememberMe, setRememberMe] = useState<boolean>(false);
-    const error = useSelector<ReduxRootType,string | undefined>(state => state.error.error)
-    const dispatch = useDispatch<ThunkDispatchActionType>();
+type LoginType = {
+    email: string,
+    setEmail: (e: ChangeEvent<HTMLInputElement>) => void,
+    password: string,
+    setPassword: (e: ChangeEvent<HTMLInputElement>) => void,
+    rememberMe: boolean,
+    setRememberMe: (rememberMe: boolean) => void,
+    tryLogin: () => void
+    error: string
+}
 
-    if (isLoggedIn) return <Navigate to={'/'}/>
+export const Login: React.FC<LoginType> = (props) => {
 
-    const Login = () => {
-        dispatch(LoginTC({email, password, rememberMe}))
-    }
+    const {email, setEmail, password, setPassword, rememberMe, setRememberMe,
+        tryLogin, error} = props
 
     return <div>
         <h2>LOGIN</h2>
         <div className={s.page}>
-            <span>email</span>
             <div>
-                <SuperInputText className={s.input} value={email} onChangeText={setEmail}/></div>
-            <span>password</span>
+                <SuperInputText className={s.input} placeholder={'Enter email'} value={email} onChange={setEmail}/></div>
             <div>
-                <SuperInputText className={s.input} value={password} onChangeText={setPassword}/></div>
+                <SuperInputText className={s.input} placeholder={'Enter password'} value={password} onChange={setPassword}/></div>
             <div>
                 <SuperCheckbox checked={rememberMe} onChangeChecked={setRememberMe}>Remember Me</SuperCheckbox></div>
-            {error}
-            <div><SuperButton onClick={Login}>Login</SuperButton></div>
+            <span className={s.error}>{error}</span>
+            <div><SuperButton onClick={tryLogin}>Login</SuperButton></div>
         </div>
     </div>
 }
-
-export default Login
