@@ -18,20 +18,21 @@ export const LoginContainer = () => {
     if (isLoggedIn) return <Navigate to={'/'}/>
 
     const tryLogin = () => {
-        dispatch(LoginTC({email, password, rememberMe}))
         error ? setViewError(error) : setViewError('')
+        dispatch(LoginTC({email, password, rememberMe}))
     }
 
-    const ChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+
+    const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
         setViewError('')
     }
 
-    const ChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
         setViewError('')
     }
-    return (<Login email={email} setEmail={ChangeEmail} password={password} setPassword={ChangePassword}
+    return (<Login email={email} setEmail={changeEmail} password={password} setPassword={changePassword}
                    rememberMe={rememberMe} setRememberMe={setRememberMe} tryLogin={tryLogin} error={viewError}/>)
 
 }
