@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import LoginReducer from "../reducers/Login-reducer";
 import NewPasswordReducer from "../reducers/New-Password-reducer";
 import ProfileReducer from "../reducers/Profile-reducer";
-import {recoveryReducer} from "../../../n2-common/c1-auth/recoveryPassword/r2-bll/recoveryReducer";
+import {RecoveryActionsType, recoveryReducer} from "../../../n2-common/c1-auth/recoveryPassword/r2-bll/recoveryReducer";
 import ErrorReducer from "../reducers/Error-reducer";
 import {
     RegistrationActionsType,
@@ -27,5 +27,7 @@ export type ReduxRootType = ReturnType<typeof rootReducer>
 
 export default store
 
-type RootActionsType = RegistrationActionsType
+type RootActionsType =
+    | RegistrationActionsType
+    | RecoveryActionsType
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, ReduxRootType, unknown, RootActionsType>
