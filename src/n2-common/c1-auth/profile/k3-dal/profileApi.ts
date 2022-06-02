@@ -6,11 +6,11 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
-export  const profileApi={
-    getMe(){
+export const profileApi = {
+    getMe() {
         return instance.post('auth/me')
     },
-    updateUser(name: string){
-        return instance.put('auth/me', {name})
+    updateUser(name: string, avatar: string | undefined) {
+        return instance.put('auth/me', {name, avatar})
     }
 }
