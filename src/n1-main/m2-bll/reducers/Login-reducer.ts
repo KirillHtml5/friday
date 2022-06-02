@@ -43,7 +43,7 @@ export const setAccountInfoAC = (isLoggedIn: boolean, email: string, name: strin
 
 //thunks
 
-type ThunkType = ThunkAction<void, ReduxRootType, unknown, ActionType>
+export type ThunkType = ThunkAction<void, ReduxRootType, unknown, ActionType>
 export type ThunkDispatchActionType = ThunkDispatch<ReduxRootType, unknown, ActionType>
 
 export const getAuthUserData = (): ThunkType => (dispatch: ThunkDispatchActionType) => {
@@ -64,7 +64,7 @@ export const LoginTC = (data: {email:string,password:string,rememberMe:boolean})
         .catch((e) => {
             const error = e.response
                 ? e.response.data.error
-                : (e.message + ', more details in the console')
+                : e.message
             console.log('Error: ', {...e})
             dispatch(setErrorAC(error))
         })
@@ -79,7 +79,7 @@ export const LogOutTC = (): ThunkType => (dispatch: ThunkDispatchActionType) => 
         .catch((e) => {
             const error = e.response
                 ? e.response.data.error
-                : (e.message + ', more details in the console')
+                : e.message
             console.log('Error: ', {...e})
             dispatch(setErrorAC(error))
         })

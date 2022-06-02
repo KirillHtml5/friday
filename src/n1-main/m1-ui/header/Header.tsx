@@ -27,7 +27,7 @@ const Header = () => {
                          className={({isActive}) => isActive ? s.activeLink : ''}>RECOVERY PASSWORD</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/new-password'
+                <NavLink to='/set-new-password'
                          className={({isActive}) => isActive ? s.activeLink : ''}>NEW
                     PASSWORD</NavLink>
             </div>
