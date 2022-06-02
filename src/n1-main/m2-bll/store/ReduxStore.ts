@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import LoginReducer from "../reducers/Login-reducer";
 import NewPasswordReducer from "../reducers/New-Password-reducer";
-import ProfileReducer from "../reducers/Profile-reducer";
+
 import RecoveryReducer from "../reducers/Recovery-reducer";
 import ErrorReducer from "../reducers/Error-reducer";
 import {
@@ -9,14 +9,18 @@ import {
     registrationReducer
 } from "../../../n2-common/c1-auth/registration/r2-bll/registrationReducer";
 import thunk, {ThunkAction} from "redux-thunk";
+import {profileReducer} from "../../../n2-common/c1-auth/profile/k2-bll/profileReducer";
+import {loadingReducer} from "../../../n2-common/c1-auth/loading/bll/loadingReducer";
 
 let rootReducer = combineReducers({
     login: LoginReducer,
     registration: registrationReducer,
-    profile: ProfileReducer,
+    profile: profileReducer,
     recoveryPassword: RecoveryReducer,
     newPassword: NewPasswordReducer,
-    error: ErrorReducer
+    loading: loadingReducer,
+    error: ErrorReducer,
+
 })
 
 let store = legacy_createStore(rootReducer, applyMiddleware(thunk))
