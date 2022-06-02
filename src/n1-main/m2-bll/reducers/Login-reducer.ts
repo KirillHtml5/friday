@@ -68,7 +68,7 @@ export const getAuthUserData = (): ThunkType => (dispatch: ThunkDispatchActionTy
             dispatch(setUserAC(res.data))
             dispatch(loadingAC(false))
         })
-        .catch(e=>{
+        .catch(e => {
             dispatch(loadingAC(false))
         })
 }

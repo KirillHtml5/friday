@@ -1,7 +1,4 @@
-import {Dispatch} from "redux";
-import {ThunkDispatch} from "redux-thunk/es/types";
 import {profileApi} from "../k3-dal/profileApi";
-import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import {setAccountInfoAC, ThunkDispatchActionType, ThunkType} from "../../../../n1-main/m2-bll/reducers/Login-reducer";
 import {loadingAC, loadingACType} from "../../loading/bll/loadingReducer";
 

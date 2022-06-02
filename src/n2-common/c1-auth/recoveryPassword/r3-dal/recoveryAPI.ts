@@ -13,10 +13,11 @@ export const recoveryAPI = {
             message: `
 <div style="background-color: #80bdff; color: white; padding: 15px">
 password recovery link: 
-<a href='http://localhost:3000/friday#/new-password/$token$'>
+<a href='https://KirillHtml5.github.io/friday/#/set-new-password/$token$'>
 link</a>
 </div>
 `,
         })
     }
 };
+
