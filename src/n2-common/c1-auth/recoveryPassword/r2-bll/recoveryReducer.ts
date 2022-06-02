@@ -3,10 +3,12 @@ import {recoveryAPI} from "../r3-dal/recoveryAPI";
 
 const SET_LOADING = "RECOVERY/SET_LOADING"
 const SET_ERROR = "RECOVERY/SET_ERROR"
+const SENDING_TOKEN = "RECOVERY/SENDING_TOKEN"
 
 const initialRecoveryState: InitRecoveryType = {
     loading: false,
     error: null,
+    isSuccess: false,
 }
 
 export const recoveryReducer = (state = initialRecoveryState, action: RecoveryActionsType): InitRecoveryType => {
@@ -15,6 +17,8 @@ export const recoveryReducer = (state = initialRecoveryState, action: RecoveryAc
             return {...state, loading: action.loading}
         case SET_ERROR:
             return {...state, error: action.error}
+        case SENDING_TOKEN:
+            return {...state, isSuccess: action.isSuccess}
         default:
             return state
     }
@@ -23,6 +27,7 @@ export const recoveryReducer = (state = initialRecoveryState, action: RecoveryAc
 //actions
 export const setLoading = (loading: boolean) => ({type: SET_LOADING, loading} as const)
 export const setError = (error: null | string) => ({type: SET_ERROR, error} as const)
+export const sendingToken = (isSuccess: boolean) => ({type: SENDING_TOKEN, isSuccess} as const)
 
 //thunks
 export const recoveryPassword = (email: string): AppThunk => {
@@ -30,6 +35,7 @@ export const recoveryPassword = (email: string): AppThunk => {
         dispatch(setLoading(true))
         try {
             await recoveryAPI.sendPassword(email)
+            dispatch(sendingToken(true))
         } catch (e: any) {
             console.log(e)
             const error = e.response.data
@@ -45,5 +51,9 @@ export const recoveryPassword = (email: string): AppThunk => {
 export type InitRecoveryType = {
     loading: boolean
     error: null | string
+    isSuccess: boolean
 }
-export type RecoveryActionsType = ReturnType<typeof setLoading> | ReturnType<typeof setError>
+export type RecoveryActionsType =
+    | ReturnType<typeof setLoading>
+    | ReturnType<typeof setError>
+    | ReturnType<typeof sendingToken>
