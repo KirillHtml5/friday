@@ -5,7 +5,8 @@ import {RecoveryPasswordContainer} from "../../../n2-common/c1-auth/recoveryPass
 import {RegistrationContainer} from "../../../n2-common/c1-auth/registration/r1-ui/RegistrationContainer";
 import {LoginContainer} from "../../../n2-common/c1-auth/login/LoginContainer";
 import {NewPasswordContainer} from "../../../n2-common/c1-auth/NewPassword/NewPasswordContainer";
-import Profile from "../../../n2-common/kirill/k1-ui/Profile";
+import Profile from "../../../n2-common/c1-auth/profile/k1-ui/Profile";
+
 
 
 const MyRoutes = () => {

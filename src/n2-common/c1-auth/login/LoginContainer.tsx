@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../../n1-main/m2-bll/store/ReduxStore";
 import {Navigate} from 'react-router-dom';
 import {LoginTC, ThunkDispatchActionType} from "../../../n1-main/m2-bll/reducers/Login-reducer";
-import { Login } from './Login';
+import Login from "./Login";
+
 
 
 export const LoginContainer = () => {
