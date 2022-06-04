@@ -1,16 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './PacksTable.module.css'
 import {PackItem} from "./packItem/PackItem";
-import {PacksAPI, PackType} from "../../p3-dal/packsAPI";
+import {PackType} from "../../p3-dal/packsAPI";
+import {useSelector} from "react-redux";
+import {ReduxRootType} from "../../../../../n1-main/m2-bll/store/ReduxStore";
 
 export const PacksTable = () => {
-    const [packs, setPacks] = useState<PackType[]>([])
-    const getPacks = async () => {
-        // setPacks(await PacksAPI.getPacks())
-        const res = await PacksAPI.getPacks()
-        console.log(res)
-        await setPacks(res)
-    }
+    const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
     return (
         <>
             <table className={s.tablePacks}>
@@ -28,12 +24,11 @@ export const PacksTable = () => {
                                           user_id={p.user_id}
                                           name={p.name}
                                           cardsCount={p.cardsCount}
-                                          created={p.created}
+                                          createdBy={p.user_name}
                                           updated={p.updated}
                 />)}
                 </tbody>
             </table>
-            <button onClick={getPacks}>GET PACKS</button>
         </>
     );
 };
