@@ -1,0 +1,19 @@
+table {
+    position: relative;
+    border-collapse: collapse;
+}
+
+thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.tablePacks {
+    border: 1px solid black;
+}
+
+.tablePacks th, .tablePacks td {
+    border: 1px solid black;
+}
