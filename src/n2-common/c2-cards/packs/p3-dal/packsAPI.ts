@@ -21,13 +21,19 @@ export const PacksAPI = {
         return response.data
     },
     addPack: async (title: string) => {
-        const response = await instance.post('/cards/pack', {
+        const response = await instance.post('cards/pack', {
             cardsPack: {
                 name: title,
             }
         })
         return response.data
-    }
+    },
+    deletePack: async (id: string) => {
+        const response = await instance.delete('cards/pack', {
+            params: {id}
+        })
+        return response.data
+    },
 }
 
 export type GetDataType = {

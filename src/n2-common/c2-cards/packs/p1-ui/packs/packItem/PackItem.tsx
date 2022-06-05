@@ -1,6 +1,9 @@
 import React, {FC} from 'react';
+import {useDispatch} from "react-redux";
+import {deletePack} from "../../../p2-bll/packsReducer";
 
 type PackItemPropsType = {
+    pack_id: string
     user_id: string
     name: string
     cardsCount: number
@@ -8,7 +11,11 @@ type PackItemPropsType = {
     updated: string
 }
 
-export const PackItem: FC<PackItemPropsType> = ({name, cardsCount, createdBy, updated}) => {
+export const PackItem: FC<PackItemPropsType> = ({pack_id, name, cardsCount, createdBy, updated}) => {
+    const dispatch = useDispatch<any>()
+    const deletePackHandler = () => {
+        dispatch(deletePack(pack_id))
+    }
     return (
         <tr>
             <td>{name}</td>
@@ -16,7 +23,7 @@ export const PackItem: FC<PackItemPropsType> = ({name, cardsCount, createdBy, up
             <td>{updated}</td>
             <td>{createdBy}</td>
             <td>
-                <button>Delete</button>
+                <button onClick={deletePackHandler}>Delete</button>
                 <button>Edit</button>
                 <button>Learn</button>
             </td>

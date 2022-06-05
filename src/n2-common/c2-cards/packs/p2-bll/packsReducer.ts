@@ -77,6 +77,19 @@ export const addPack = (): AppThunk => {
         dispatch(loadingAC(false))
     }
 }
+export const deletePack = (pack_id: string): AppThunk => {
+    return async (dispatch) => {
+        try {
+            await PacksAPI.deletePack(pack_id)
+            dispatch(getPacks())
+        } catch (e: any) {
+            const error = e.response.data
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            dispatch(setError(error))
+        }
+    }
+}
 
 //types
 export type InitPacksStateType = {

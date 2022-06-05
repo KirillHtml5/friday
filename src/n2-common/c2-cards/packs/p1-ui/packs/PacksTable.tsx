@@ -21,6 +21,7 @@ export const PacksTable = () => {
                 </thead>
                 <tbody>
                 {packs.map(p => <PackItem key={p._id}
+                                          pack_id={p._id}
                                           user_id={p.user_id}
                                           name={p.name}
                                           cardsCount={p.cardsCount}
