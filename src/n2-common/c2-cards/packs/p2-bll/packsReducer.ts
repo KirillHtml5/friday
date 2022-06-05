@@ -5,7 +5,12 @@ import {loadingAC} from "../../../c1-auth/loading/bll/loadingReducer";
 const SET_USER_ID = "PACKS/SET_USER_ID"
 const SET_PACKS = "PACKS/SET_PACKS"
 const SET_ERROR = "PACKS/SET_ERROR"
-const SET_PACKS_TOTAL_COUNT = "PACKS/SET_PACKS_TOTAL_COUNT"
+const SET_CARD_PACKS_TOTAL_COUNT = "PACKS/SET_CARD_PACKS_TOTAL_COUNT"
+const SET_MAX = "PACKS/SET_MAX"
+const SET_MIN = "PACKS/SET_MIN"
+const SET_CURRENT_PAGE = 'PACKS/SET_CURRENT_PAGE'
+const SET_PACK_NAME = 'PACKS/SET_PACK_NAME'
+const SET_SORT_PACKS = 'PACKS/SET_SORT_PACKS'
 
 const initialState: InitPacksStateType = {
     cardPacks: [],
@@ -28,7 +33,12 @@ export const PacksReducer = (state = initialState, action: PacksActionsType): In
             return {...state, cardPacks: action.cardPacks}
         case SET_ERROR:
             return {...state, error: action.error}
-        case SET_PACKS_TOTAL_COUNT:
+        case SET_CARD_PACKS_TOTAL_COUNT:
+        case SET_MAX:
+        case SET_MIN:
+        case SET_CURRENT_PAGE:
+        case SET_PACK_NAME:
+        case SET_SORT_PACKS:
             return {...state, ...action.payload}
         default:
             return state
@@ -39,10 +49,15 @@ export const PacksReducer = (state = initialState, action: PacksActionsType): In
 export const setUserID = (user_id: string) => ({type: SET_USER_ID, user_id} as const)
 export const setPacks = (cardPacks: PackType[]) => ({type: SET_PACKS, cardPacks} as const)
 export const setError = (error: null | string) => ({type: SET_ERROR, error} as const)
-export const setPacksTotalCount = (totalCount: number) => ({
-    type: SET_PACKS_TOTAL_COUNT,
-    payload: {totalCount}
+export const setCardPacksTotalCount = (cardPacksTotalCount: number) => ({
+    type: SET_CARD_PACKS_TOTAL_COUNT,
+    payload: {cardPacksTotalCount}
 } as const)
+export const setMax = (max: number) => ({type: SET_MAX, payload: {max}} as const)
+export const setMin = (min: number) => ({type: SET_MIN, payload: {min}} as const)
+export const setCurrentPage = (page: number) => ({type: SET_CURRENT_PAGE, payload: {page}} as const)
+export const setPackName = (packName: string) => ({type: SET_PACK_NAME, payload: {packName}} as const)
+export const setSortPacks = (sortPacks: string) => ({type: SET_SORT_PACKS, payload: {sortPacks}} as const)
 
 //thunks
 export const getPacks = (): AppThunk => {
@@ -52,7 +67,7 @@ export const getPacks = (): AppThunk => {
             const {packName, min, max, sortPacks, page, pageCount} = getState().packs
             const res = await PacksAPI.getPacks({packName, min, max, sortPacks, page, pageCount})
             dispatch(setPacks(res.cardPacks))
-            dispatch(setPacksTotalCount(res.cardPacksTotalCount))
+            dispatch(setCardPacksTotalCount(res.cardPacksTotalCount))
         } catch (e: any) {
             const error = e.response.data
                 ? e.response.data.error
@@ -121,4 +136,9 @@ export type PacksActionsType =
     | ReturnType<typeof setUserID>
     | ReturnType<typeof setPacks>
     | ReturnType<typeof setError>
-    | ReturnType<typeof setPacksTotalCount>
+    | ReturnType<typeof setCardPacksTotalCount>
+    | ReturnType<typeof setMax>
+    | ReturnType<typeof setMin>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setPackName>
+    | ReturnType<typeof setSortPacks>

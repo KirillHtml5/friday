@@ -1,7 +1,16 @@
 import React, {useEffect} from 'react';
 import {PacksTable} from "./packs/PacksTable";
 import {useDispatch, useSelector} from "react-redux";
-import {addPack, getPacks, InitPacksStateType, setError} from "../p2-bll/packsReducer";
+import {
+    addPack,
+    getPacks,
+    InitPacksStateType,
+    setCurrentPage,
+    setError,
+    setMax,
+    setMin,
+    setPackName
+} from "../p2-bll/packsReducer";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import s from "../../../c1-auth/loading/loading.module.css";
 import {useNavigate} from "react-router-dom";
@@ -30,11 +39,11 @@ export const PacksPage = () => {
         return () => {
             dispatch(setError(null))
         }
-    }, [])
+    }, [isLoggedIn, navigate, dispatch])
 
     useEffect(() => {
         dispatch(getPacks())
-    }, [packName, min, max, sortPacks, page, pageCount, cardPacksTotalCount])
+    }, [packName, min, max, sortPacks, page, pageCount, cardPacksTotalCount, dispatch])
 
     const addPackHandler = () => {
         dispatch(addPack('React'))
@@ -47,6 +56,10 @@ export const PacksPage = () => {
                 {error && error}
                 <button onClick={addPackHandler}>Add Task</button>
                 <PacksTable/>
+            <button onClick={() => dispatch(setMax(12))}>MAX</button>
+            <button onClick={() => dispatch(setMin(5))}>MIN</button>
+            <button onClick={() => dispatch(setCurrentPage(2))}>PAGE</button>
+            <button onClick={() => dispatch(setPackName('at'))}>NAME</button>
             </div>
     );
 };
