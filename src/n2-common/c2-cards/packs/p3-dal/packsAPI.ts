@@ -7,9 +7,18 @@ const instance = axios.create({
 })
 
 export const PacksAPI = {
-    getPacks: async () => {
-        const response = await instance.get<GetDataType>('cards/pack')
-        return response.data.cardPacks
+    getPacks: async ({packName, min, max, sortPacks, page, pageCount}: RequestModel) => {
+        const response = await instance.get<GetDataType>('cards/pack', {
+            params: {
+                packName,
+                min,
+                max,
+                sortPacks,
+                page,
+                pageCount,
+            }
+        })
+        return response.data
     }
 }
 
@@ -42,4 +51,13 @@ export type PackType = {
     user_name: string
     __v: number // not used
     _id: string
+}
+
+export type RequestModel = {
+    packName: string
+    min: number
+    max: number
+    sortPacks: string
+    page: number
+    pageCount: number
 }

@@ -8,7 +8,7 @@ import {
 } from "../../../n2-common/c1-auth/registration/r2-bll/registrationReducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {profileReducer} from "../../../n2-common/c1-auth/profile/k2-bll/profileReducer";
-import {loadingReducer} from "../../../n2-common/c1-auth/loading/bll/loadingReducer";
+import {loadingACType, loadingReducer} from "../../../n2-common/c1-auth/loading/bll/loadingReducer";
 import {RecoveryActionsType, recoveryReducer} from "../../../n2-common/c1-auth/recoveryPassword/r2-bll/recoveryReducer";
 import {PacksActionsType, PacksReducer} from "../../../n2-common/c2-cards/packs/p2-bll/packsReducer";
 
@@ -35,5 +35,6 @@ type RootActionsType =
     | RegistrationActionsType
     | RecoveryActionsType
     | PacksActionsType
+    | loadingACType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, ReduxRootType, unknown, RootActionsType>

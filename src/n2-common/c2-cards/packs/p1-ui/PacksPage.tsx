@@ -1,24 +1,34 @@
 import React, {useEffect} from 'react';
 import {PacksTable} from "./packs/PacksTable";
-import {useDispatch} from "react-redux";
-import {PacksAPI} from "../p3-dal/packsAPI";
-import {setPacks} from "../p2-bll/packsReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {getPacks, InitPacksStateType} from "../p2-bll/packsReducer";
+import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
+import s from "../../../c1-auth/loading/loading.module.css";
 
 export const PacksPage = () => {
+    const isLoad = useSelector<ReduxRootType, boolean>(state => state.loading.isLoad)
+    const error = useSelector<ReduxRootType, string | null>(state => state.packs.error)
+    const {
+        packName,
+        min,
+        max,
+        sortPacks,
+        page,
+        pageCount
+    } = useSelector<ReduxRootType, InitPacksStateType>(state => state.packs)
+
     const dispatch = useDispatch<any>()
 
-    const getPacks = async () => {
-        const res = await PacksAPI.getPacks()
-        dispatch(setPacks(res))
-    }
-
     useEffect(() => {
-        getPacks()
-    }, [])
+        dispatch(getPacks())
+    }, [packName, min, max, sortPacks, page, pageCount])
 
     return (
-        <div style={{margin: "0 auto"}}>
-            <PacksTable/>
-        </div>
+        isLoad
+            ? <div className={s.preloader}></div>
+            : <div style={{margin: "0 auto"}}>
+                {error && error}
+                <PacksTable/>
+            </div>
     );
 };
