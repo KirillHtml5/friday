@@ -25,7 +25,7 @@ export const PacksPage = () => {
     }, [packName, min, max, sortPacks, page, pageCount, cardPacksTotalCount])
 
     const addPackHandler = () => {
-        dispatch(addPack())
+        dispatch(addPack('React'))
     }
 
     return (

@@ -62,11 +62,11 @@ export const getPacks = (): AppThunk => {
         dispatch(loadingAC(false))
     }
 }
-export const addPack = (): AppThunk => {
+export const addPack = (title: string): AppThunk => {
     return async (dispatch) => {
         try {
             dispatch(loadingAC(true))
-            await PacksAPI.addPack('React')
+            await PacksAPI.addPack(title)
             dispatch(getPacks())
         } catch (e: any) {
             const error = e.response.data
@@ -81,6 +81,19 @@ export const deletePack = (pack_id: string): AppThunk => {
     return async (dispatch) => {
         try {
             await PacksAPI.deletePack(pack_id)
+            dispatch(getPacks())
+        } catch (e: any) {
+            const error = e.response.data
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            dispatch(setError(error))
+        }
+    }
+}
+export const updatePack = (pack_id: string, title: string): AppThunk => {
+    return async (dispatch) => {
+        try {
+            await PacksAPI.updatePack(pack_id, title)
             dispatch(getPacks())
         } catch (e: any) {
             const error = e.response.data

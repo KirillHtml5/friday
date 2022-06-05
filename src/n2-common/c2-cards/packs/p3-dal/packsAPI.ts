@@ -34,6 +34,15 @@ export const PacksAPI = {
         })
         return response.data
     },
+    updatePack: async (_id: string, name: string) => {
+        const response = await instance.put('cards/pack', {
+            cardsPack: {
+                _id,
+                name,
+            }
+        })
+        return response.data
+    },
 }
 
 export type GetDataType = {
