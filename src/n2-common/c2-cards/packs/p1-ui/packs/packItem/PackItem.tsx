@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {useDispatch} from "react-redux";
 import {deletePack, updatePack} from "../../../p2-bll/packsReducer";
+import s from '../PacksTable.module.css';
 
 type PackItemPropsType = {
     pack_id: string
@@ -34,12 +35,12 @@ export const PackItem: FC<PackItemPropsType> = ({
             <td>{cardsCount}</td>
             <td>{updated}</td>
             <td>{createdBy}</td>
-            <td>
+            <td className={s.buttonsBlock}>
                 {user_id === creator_id
                     ? <>
-                        <button onClick={deletePackHandler}>Delete</button>
-                        <button onClick={updatePackHandler}>Edit</button>
                         <button>Learn</button>
+                        <button onClick={updatePackHandler}>Edit</button>
+                        <button onClick={deletePackHandler}>Delete</button>
                     </>
                     : <button>Learn</button>
                 }

@@ -11,7 +11,7 @@ export const PacksTable = () => {
 
     return (
         <>
-            <table className={s.tablePacks}>
+            <table className={s.table}>
                 <thead>
                 <tr>
                     <th>Name</th>
