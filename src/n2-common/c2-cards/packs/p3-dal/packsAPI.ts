@@ -19,6 +19,14 @@ export const PacksAPI = {
             }
         })
         return response.data
+    },
+    addPack: async (title: string) => {
+        const response = await instance.post('/cards/pack', {
+            cardsPack: {
+                name: title,
+            }
+        })
+        return response.data
     }
 }
 

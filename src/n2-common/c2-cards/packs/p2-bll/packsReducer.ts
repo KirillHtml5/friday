@@ -5,6 +5,7 @@ import {loadingAC} from "../../../c1-auth/loading/bll/loadingReducer";
 const SET_USER_ID = "PACKS/SET_USER_ID"
 const SET_PACKS = "PACKS/SET_PACKS"
 const SET_ERROR = "PACKS/SET_ERROR"
+const SET_PACKS_TOTAL_COUNT = "PACKS/SET_PACKS_TOTAL_COUNT"
 
 const initialState: InitPacksStateType = {
     cardPacks: [],
@@ -27,6 +28,8 @@ export const PacksReducer = (state = initialState, action: PacksActionsType): In
             return {...state, cardPacks: action.cardPacks}
         case SET_ERROR:
             return {...state, error: action.error}
+        case SET_PACKS_TOTAL_COUNT:
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -36,6 +39,10 @@ export const PacksReducer = (state = initialState, action: PacksActionsType): In
 export const setUserID = (user_id: string) => ({type: SET_USER_ID, user_id} as const)
 export const setPacks = (cardPacks: PackType[]) => ({type: SET_PACKS, cardPacks} as const)
 export const setError = (error: null | string) => ({type: SET_ERROR, error} as const)
+export const setPacksTotalCount = (totalCount: number) => ({
+    type: SET_PACKS_TOTAL_COUNT,
+    payload: {totalCount}
+} as const)
 
 //thunks
 export const getPacks = (): AppThunk => {
@@ -45,6 +52,22 @@ export const getPacks = (): AppThunk => {
             const {packName, min, max, sortPacks, page, pageCount} = getState().packs
             const res = await PacksAPI.getPacks({packName, min, max, sortPacks, page, pageCount})
             dispatch(setPacks(res.cardPacks))
+            dispatch(setPacksTotalCount(res.cardPacksTotalCount))
+        } catch (e: any) {
+            const error = e.response.data
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            dispatch(setError(error))
+        }
+        dispatch(loadingAC(false))
+    }
+}
+export const addPack = (): AppThunk => {
+    return async (dispatch) => {
+        try {
+            dispatch(loadingAC(true))
+            await PacksAPI.addPack('React')
+            dispatch(getPacks())
         } catch (e: any) {
             const error = e.response.data
                 ? e.response.data.error
@@ -72,3 +95,4 @@ export type PacksActionsType =
     | ReturnType<typeof setUserID>
     | ReturnType<typeof setPacks>
     | ReturnType<typeof setError>
+    | ReturnType<typeof setPacksTotalCount>
