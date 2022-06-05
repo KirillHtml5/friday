@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {PacksTable} from "./packs/PacksTable";
 import {useDispatch, useSelector} from "react-redux";
-import {addPack, getPacks, InitPacksStateType} from "../p2-bll/packsReducer";
+import {addPack, getPacks, InitPacksStateType, setError} from "../p2-bll/packsReducer";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import s from "../../../c1-auth/loading/loading.module.css";
 import {useNavigate} from "react-router-dom";
@@ -26,6 +26,9 @@ export const PacksPage = () => {
     useEffect(() => {
         if (!isLoggedIn) {
             return navigate('/login')
+        }
+        return () => {
+            dispatch(setError(null))
         }
     }, [])
 
