@@ -7,6 +7,8 @@ import {ReduxRootType} from "../../../../../n1-main/m2-bll/store/ReduxStore";
 
 export const PacksTable = () => {
     const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
+    const user_id = useSelector<ReduxRootType, string>(state => state.profile.user._id)
+
     return (
         <>
             <table className={s.tablePacks}>

@@ -17,11 +17,11 @@ export const RegistrationContainer = () => {
     } = useSelector<ReduxRootType, RegistrationInitState>(state => state.registration)
 
     const dispatch = useDispatch<any>()
-    let navigate = useNavigate();
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (isRegistered) {
-            return navigate("/login");
+            return navigate("/login")
         }
         return () => {
             dispatch(setRegistration(false))
