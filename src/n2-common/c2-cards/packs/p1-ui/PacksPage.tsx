@@ -5,6 +5,7 @@ import {
     addPack,
     getPacks,
     InitPacksStateType,
+    setBelonging,
     setCurrentPage,
     setError,
     setMax,
@@ -27,6 +28,7 @@ export const PacksPage = () => {
         page,
         pageCount,
         cardPacksTotalCount,
+        isMyPacks,
     } = useSelector<ReduxRootType, InitPacksStateType>(state => state.packs)
 
     const dispatch = useDispatch<any>()
@@ -43,7 +45,7 @@ export const PacksPage = () => {
 
     useEffect(() => {
         dispatch(getPacks())
-    }, [packName, min, max, sortPacks, page, pageCount, cardPacksTotalCount, dispatch])
+    }, [packName, min, max, sortPacks, page, pageCount, cardPacksTotalCount, isMyPacks, dispatch])
 
     const addPackHandler = () => {
         dispatch(addPack('React'))
@@ -56,10 +58,12 @@ export const PacksPage = () => {
                 {error && error}
                 <button onClick={addPackHandler}>Add Task</button>
                 <PacksTable/>
-            <button onClick={() => dispatch(setMax(12))}>MAX</button>
-            <button onClick={() => dispatch(setMin(5))}>MIN</button>
-            <button onClick={() => dispatch(setCurrentPage(2))}>PAGE</button>
-            <button onClick={() => dispatch(setPackName('at'))}>NAME</button>
+                <button onClick={() => dispatch(setMax(12))}>MAX</button>
+                <button onClick={() => dispatch(setMin(5))}>MIN</button>
+                <button onClick={() => dispatch(setCurrentPage(2))}>PAGE</button>
+                <button onClick={() => dispatch(setPackName('at'))}>NAME</button>
+                <button onClick={() => dispatch(setBelonging(true))}>My Packs</button>
+                <button onClick={() => dispatch(setBelonging(false))}>All packs</button>
             </div>
     );
 };

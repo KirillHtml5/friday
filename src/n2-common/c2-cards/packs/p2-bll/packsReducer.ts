@@ -11,6 +11,7 @@ const SET_MIN = "PACKS/SET_MIN"
 const SET_CURRENT_PAGE = 'PACKS/SET_CURRENT_PAGE'
 const SET_PACK_NAME = 'PACKS/SET_PACK_NAME'
 const SET_SORT_PACKS = 'PACKS/SET_SORT_PACKS'
+const SET_BELONGING = 'PACKS/SET_SORT_PACKS'
 
 const initialState: InitPacksStateType = {
     cardPacks: [],
@@ -23,6 +24,7 @@ const initialState: InitPacksStateType = {
     sortPacks: '0updated',
     user_id: null,
     error: null,
+    isMyPacks: false,
 }
 
 export const PacksReducer = (state = initialState, action: PacksActionsType): InitPacksStateType => {
@@ -58,14 +60,21 @@ export const setMin = (min: number) => ({type: SET_MIN, payload: {min}} as const
 export const setCurrentPage = (page: number) => ({type: SET_CURRENT_PAGE, payload: {page}} as const)
 export const setPackName = (packName: string) => ({type: SET_PACK_NAME, payload: {packName}} as const)
 export const setSortPacks = (sortPacks: string) => ({type: SET_SORT_PACKS, payload: {sortPacks}} as const)
+export const setBelonging = (isMyPacks: boolean) => ({type: SET_BELONGING, payload: {isMyPacks}} as const)
 
 //thunks
 export const getPacks = (): AppThunk => {
     return async (dispatch, getState: () => ReduxRootType) => {
         try {
             dispatch(loadingAC(true))
-            const {packName, min, max, sortPacks, page, pageCount} = getState().packs
-            const res = await PacksAPI.getPacks({packName, min, max, sortPacks, page, pageCount})
+            const {packName, min, max, sortPacks, page, pageCount, isMyPacks} = getState().packs
+            const user_id = getState().profile.user._id
+            let res
+            if (isMyPacks) {
+                res = await PacksAPI.getPacks({packName, min, max, sortPacks, page, pageCount, user_id})
+            } else {
+                res = await PacksAPI.getPacks({packName, min, max, sortPacks, page, pageCount})
+            }
             dispatch(setPacks(res.cardPacks))
             dispatch(setCardPacksTotalCount(res.cardPacksTotalCount))
         } catch (e: any) {
@@ -131,6 +140,7 @@ export type InitPacksStateType = {
     sortPacks: string
     user_id: string | null
     error: string | null
+    isMyPacks: boolean
 }
 export type PacksActionsType =
     | ReturnType<typeof setUserID>
@@ -142,3 +152,4 @@ export type PacksActionsType =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setPackName>
     | ReturnType<typeof setSortPacks>
+    | ReturnType<typeof setBelonging>

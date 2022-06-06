@@ -38,10 +38,11 @@
 
 .buttonsBlock {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .buttonsBlock button {
     padding: 5px 10px;
-    width: 80px;
+    width: 70px;
+    margin: 0 5px;
 }
