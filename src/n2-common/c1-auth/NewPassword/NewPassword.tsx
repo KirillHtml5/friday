@@ -1,11 +1,8 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent} from 'react'
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import s from './newPassword.module.css'
-import {Navigate, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {ReduxRootType} from "../../../n1-main/m2-bll/store/ReduxStore";
-import {setNewPassword, ThunkDispatchActionType} from "../../../n1-main/m2-bll/reducers/New-Password-reducer";
+
 
 type NewPasswordType = {
     password: string,

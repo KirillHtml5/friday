@@ -26,7 +26,7 @@ export const Login: React.FC<LoginType> = (props) => {
 
     return <div>
         {isLoad
-            ? (<div className={c.preloader}></div>)
+            ? (<div className={c.preloader}/>)
             : (<div>
                 <h2>LOGIN</h2>
                 <div className={s.page}>
@@ -34,7 +34,7 @@ export const Login: React.FC<LoginType> = (props) => {
                         <SuperInputText className={s.input} placeholder={'Enter email'} value={email}
                                         onChange={setEmail}/></div>
                     <div>
-                        <SuperInputText className={s.input} placeholder={'Enter password'} value={password}
+                        <SuperInputText className={s.input} type='password' placeholder={'Enter password'} value={password}
                                         onChange={setPassword}/></div>
                     <div>
                         <SuperCheckbox checked={rememberMe} onChangeChecked={setRememberMe}>Remember Me</SuperCheckbox>
@@ -46,50 +46,3 @@ export const Login: React.FC<LoginType> = (props) => {
 
     </div>
 }
-
-// const Login = () => {
-//
-//     const isLoad = useSelector<ReduxRootType, boolean>(state => state.loading.isLoad)
-//     const isLoggedIn = useSelector<ReduxRootType, boolean>(state => state.login.isLoggedIn)
-//     const [email, setEmail] = useState<string>('');
-//     const [password, setPassword] = useState<string>('');
-//     const [rememberMe, setRememberMe] = useState<boolean>(false);
-//     const error = useSelector<ReduxRootType, string | undefined>(state => state.error.error)
-//     const dispatch = useDispatch<ThunkDispatchActionType>();
-//
-//     useEffect(() => {
-//
-//         dispatch(getAuthUserData())
-//     }, [dispatch])
-//
-//     if (isLoggedIn) return <Navigate to={'/'}/>
-//
-//     const Login = () => {
-//         dispatch(LoginTC({email, password, rememberMe}))
-//     }
-//
-//     return <div>
-//         {isLoad
-//             ? (<div className={c.preloader}></div>)
-//             : (<div>
-//                 <h2>LOGIN</h2>
-//                 <div className={s.page}>
-//                     <span>email</span>
-//                     <div>
-//                         <SuperInputText className={s.input} value={email} onChangeText={setEmail}/></div>
-//                     <span>password</span>
-//                     <div>
-//                         <SuperInputText className={s.input} value={password} onChangeText={setPassword}/></div>
-//                     <div>
-//                         <SuperCheckbox checked={rememberMe} onChangeChecked={setRememberMe}>Remember Me</SuperCheckbox>
-//                     </div>
-//                     {error}
-//                     <div><SuperButton onClick={Login}>Login</SuperButton></div>
-//                 </div>
-//             </div>)
-//         }
-//
-//     </div>
-// }
-//
-// export default Login

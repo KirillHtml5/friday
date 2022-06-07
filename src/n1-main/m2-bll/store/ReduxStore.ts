@@ -13,6 +13,7 @@ import {RecoveryActionsType, recoveryReducer} from "../../../n2-common/c1-auth/r
 import {reducerPag} from "../../../n2-common/k2-pagination/reducerPag";
 import {reducerSort} from "../../../n2-common/k2-sort/reducerSort";
 import {PacksActionsType, PacksReducer} from "../../../n2-common/c2-cards/packs/p2-bll/packsReducer";
+import {CardsReducer} from "../reducers/Cards-reducer";
 
 let rootReducer = combineReducers({
     login: LoginReducer,
@@ -26,6 +27,7 @@ let rootReducer = combineReducers({
     sort: reducerSort,
 
     packs: PacksReducer,
+    cards: CardsReducer
 })
 
 let store = legacy_createStore(rootReducer, applyMiddleware(thunk))
