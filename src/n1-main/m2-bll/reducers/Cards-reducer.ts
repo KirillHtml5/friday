@@ -113,7 +113,7 @@ export const deleteCard = (id: string, cardId: string) => (dispatch: ThunkDispat
     CardsApi.deleteCard(cardId)
         .then(res => {
             dispatch(getCards(id))
-            console.log('update',res)
+            console.log('delete',res)
         })
         .catch((e) => {
             const error = e.response
