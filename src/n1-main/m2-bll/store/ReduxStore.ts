@@ -11,7 +11,6 @@ import {profileReducer} from "../../../n2-common/c1-auth/profile/k2-bll/profileR
 import {loadingACType, loadingReducer} from "../../../n2-common/c1-auth/loading/bll/loadingReducer";
 import {RecoveryActionsType, recoveryReducer} from "../../../n2-common/c1-auth/recoveryPassword/r2-bll/recoveryReducer";
 import {reducerPag} from "../../../n2-common/k2-pagination/reducerPag";
-import {reducerSort} from "../../../n2-common/k2-sort/reducerSort";
 import {PacksActionsType, PacksReducer} from "../../../n2-common/c2-cards/packs/p2-bll/packsReducer";
 import {CardsReducer} from "../reducers/Cards-reducer";
 
