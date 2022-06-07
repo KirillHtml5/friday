@@ -6,6 +6,7 @@ import {RegistrationContainer} from "../../../n2-common/c1-auth/registration/r1-
 import {LoginContainer} from "../../../n2-common/c1-auth/login/LoginContainer";
 import {NewPasswordContainer} from "../../../n2-common/c1-auth/NewPassword/NewPasswordContainer";
 import Profile from "../../../n2-common/c1-auth/profile/k1-ui/Profile";
+import {CardsPage} from "../../../n2-common/c2-cards/x2-cards-page/cardsPage";
 
 
 
@@ -21,6 +22,7 @@ const MyRoutes = () => {
             <Route path={'recovery-password'} element={<RecoveryPasswordContainer/>}/>
             <Route path={'test'} element={<Test/>}/>
             <Route path={'*'} element={<Navigate to={'/404'}/>}/>
+            <Route path={'cards/:id'} element={<CardsPage/>}/>
         </Routes>
     </div>
 }

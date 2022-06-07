@@ -11,6 +11,7 @@ import thunk, {ThunkAction} from "redux-thunk";
 import {profileReducer} from "../../../n2-common/c1-auth/profile/k2-bll/profileReducer";
 import {loadingReducer} from "../../../n2-common/c1-auth/loading/bll/loadingReducer";
 import {RecoveryActionsType, recoveryReducer} from "../../../n2-common/c1-auth/recoveryPassword/r2-bll/recoveryReducer";
+import {CardsReducer} from "../reducers/Cards-reducer";
 
 let rootReducer = combineReducers({
     login: LoginReducer,
@@ -20,7 +21,7 @@ let rootReducer = combineReducers({
     newPassword: NewPasswordReducer,
     loading: loadingReducer,
     error: ErrorReducer,
-
+    cards: CardsReducer
 })
 
 let store = legacy_createStore(rootReducer, applyMiddleware(thunk))
