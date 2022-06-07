@@ -24,7 +24,6 @@ let rootReducer = combineReducers({
     loading: loadingReducer,
     error: ErrorReducer,
     pagination: reducerPag,
-    sort: reducerSort,
 
     packs: PacksReducer,
     cards: CardsReducer
