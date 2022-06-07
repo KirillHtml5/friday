@@ -25,7 +25,7 @@ export const CardsPage = () => {
 
     useEffect(() => {
         dispatch(getCards(packId))
-    }, [dispatch])
+    }, [dispatch,packId])
 
     const addNewCard = (packId: string) => {
         dispatch(addCard(packId))
