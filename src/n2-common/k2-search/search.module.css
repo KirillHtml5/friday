@@ -1,0 +1,11 @@
+.search{
+    display: flex;
+    margin: 10px 0;
+}
+.input{
+    padding: 5px;
+    width: 100%;
+}
+.button{
+    padding: 5px;
+}
