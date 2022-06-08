@@ -1,9 +1,4 @@
-import axios from "axios"
-
-const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-    withCredentials: true,
-})
+import {instance} from "../../../../n1-main/m3-bll/instance";
 
 export const recoveryAPI = {
     sendPassword: (email: string) => {
