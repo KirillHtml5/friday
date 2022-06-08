@@ -2,6 +2,9 @@ import React, {FC} from 'react';
 import {useDispatch} from "react-redux";
 import {deletePack, updatePack} from "../../../p2-bll/packsReducer";
 import s from '../PacksTable.module.css';
+import {getCards} from "../../../../../../n1-main/m2-bll/reducers/Cards-reducer";
+import {useNavigate} from "react-router-dom";
+
 
 type PackItemPropsType = {
     pack_id: string
@@ -23,11 +26,17 @@ export const PackItem: FC<PackItemPropsType> = ({
                                                     updated
                                                 }) => {
     const dispatch = useDispatch<any>()
+    const navigate = useNavigate()
+
     const deletePackHandler = () => {
         dispatch(deletePack(pack_id))
     }
     const updatePackHandler = () => {
         dispatch(updatePack(pack_id, 'Updated title'))
+    }
+    const learnPackHandler = () => {
+        dispatch(getCards(pack_id))
+        navigate(`/cards/${pack_id}`)
     }
     return (
         <tr>
@@ -38,7 +47,7 @@ export const PackItem: FC<PackItemPropsType> = ({
             <td className={s.buttonsBlock}>
                 {user_id === creator_id
                     ? <>
-                        <button>Learn</button>
+                        <button onClick={learnPackHandler}>Learn</button>
                         <button onClick={updatePackHandler}>Edit</button>
                         <button onClick={deletePackHandler}>Delete</button>
                     </>

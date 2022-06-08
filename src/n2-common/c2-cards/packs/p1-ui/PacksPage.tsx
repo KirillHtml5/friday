@@ -15,6 +15,8 @@ import {
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import s from "../../../c1-auth/loading/loading.module.css";
 import {useNavigate} from "react-router-dom";
+import {Pagination} from "../../../k2-pagination/pagination";
+import Search from "../../../k2-search/search";
 
 export const PacksPage = () => {
     const isLoad = useSelector<ReduxRootType, boolean>(state => state.loading.isLoad)
@@ -55,6 +57,7 @@ export const PacksPage = () => {
         isLoad
             ? <div className={s.preloader}></div>
             : <div style={{margin: "0 auto"}}>
+                <Search/>
                 {error && error}
                 <button onClick={addPackHandler}>Add Task</button>
                 <PacksTable/>
@@ -64,6 +67,7 @@ export const PacksPage = () => {
                 <button onClick={() => dispatch(setPackName('at'))}>NAME</button>
                 <button onClick={() => dispatch(setBelonging(true))}>My Packs</button>
                 <button onClick={() => dispatch(setBelonging(false))}>All packs</button>
+                <Pagination/>
             </div>
     );
 };
