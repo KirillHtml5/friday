@@ -1,15 +1,16 @@
 import axios from "axios";
-import {CardsStateType} from "../../n1-main/m2-bll/reducers/Cards-reducer";
+import {CardsStateType} from "../../../n1-main/m2-bll/reducers/Cards-reducer";
 
 export const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
+    baseURL: 'http://localhost:7542/2.0/',
+    // baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
 })
 
-export type CardsApiType = {
+export type CardsParamsType = {
     cardsPack_id: string
     cardAnswer?: string,
-    cardQuestion: string,
+    cardQuestion?: string,
     min?: number,
     max?: number,
     sortCards?: string,
@@ -19,7 +20,7 @@ export type CardsApiType = {
 }
 
 export const CardsApi = {
-    getCards(cardsPack_id: string,/* params: CardsApiType*/) {
+    getCards(cardsPack_id:string) {
         return instance.get<CardsStateType>(`/cards/card?cardsPack_id=${cardsPack_id}`)
             .then(res => res.data)
     },

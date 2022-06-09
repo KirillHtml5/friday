@@ -1,6 +1,6 @@
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ReduxRootType} from "../store/ReduxStore";
-import {CardsApi} from "../../../n2-common/c2-cards/CardsApi";
+import {CardsApi} from "../../../n2-common/c2-cards/cards/CardsApi";
 import {setErrorAC, setErrorACType} from "./Error-reducer";
 import {loadingAC, loadingACType} from "../../../n2-common/c1-auth/loading/bll/loadingReducer";
 
@@ -28,10 +28,26 @@ export type CardsType = {
 
 export type CardsStateType = {
     cards: Array<CardsType>,
+    cardsPack_id: string
+    cardAnswer?: string,
+    cardQuestion?: string,
+    min?: number,
+    max?: number,
+    sortCards?: string,
+    page?: number,
+    pageCount?: number
 }
 
 const initState: CardsStateType = {
-    cards: []
+    cards: [],
+    cardsPack_id: '',
+    cardAnswer: '',
+    cardQuestion: '',
+    min: 1,
+    max: 10,
+    sortCards: '0grade',
+    page: 1,
+    pageCount: 3
 }
 
 export const CardsReducer = (state = initState, action: ActionCards): CardsStateType => {
@@ -60,9 +76,9 @@ export type ThunkType = ThunkAction<void, ReduxRootType, unknown, ActionCards>
 export type ThunkDispatchActionType = ThunkDispatch<ReduxRootType, unknown, ActionCards>
 
 
-export const getCards = (id: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
+export const getCards = (cardsPack_id: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
     dispatch(loadingAC(true))
-    CardsApi.getCards(id)
+    CardsApi.getCards(cardsPack_id)
         .then(res => {
             dispatch(setCards(res.cards))
             console.log('cards', res.cards)
@@ -73,7 +89,7 @@ export const getCards = (id: string): ThunkType => (dispatch: ThunkDispatchActio
                 : (e.message + ', more details in the console')
             dispatch(setErrorAC(error))
         })
-        .finally(()=>dispatch(loadingAC(false)))
+        .finally(() => dispatch(loadingAC(false)))
 }
 
 export const addCard = (id: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
@@ -81,7 +97,7 @@ export const addCard = (id: string): ThunkType => (dispatch: ThunkDispatchAction
     CardsApi.addCard(id)
         .then(res => {
             dispatch(getCards(id))
-            console.log('add',res)
+            console.log('add', res)
         })
         .catch((e) => {
             const error = e.response
@@ -89,7 +105,7 @@ export const addCard = (id: string): ThunkType => (dispatch: ThunkDispatchAction
                 : (e.message + ', more details in the console')
             dispatch(setErrorAC(error))
         })
-        .finally(()=>dispatch(loadingAC(false)))
+        .finally(() => dispatch(loadingAC(false)))
 }
 
 export const updateCard = (id: string, cardId: string) => (dispatch: ThunkDispatchActionType) => {
@@ -97,7 +113,7 @@ export const updateCard = (id: string, cardId: string) => (dispatch: ThunkDispat
     CardsApi.updateCard(cardId)
         .then(res => {
             dispatch(getCards(id))
-            console.log('update',res)
+            console.log('update', res)
         })
         .catch((e) => {
             const error = e.response
@@ -105,7 +121,7 @@ export const updateCard = (id: string, cardId: string) => (dispatch: ThunkDispat
                 : (e.message + ', more details in the console')
             dispatch(setErrorAC(error))
         })
-        .finally(()=>dispatch(loadingAC(false)))
+        .finally(() => dispatch(loadingAC(false)))
 }
 
 export const deleteCard = (id: string, cardId: string) => (dispatch: ThunkDispatchActionType) => {
@@ -113,7 +129,7 @@ export const deleteCard = (id: string, cardId: string) => (dispatch: ThunkDispat
     CardsApi.deleteCard(cardId)
         .then(res => {
             dispatch(getCards(id))
-            console.log('delete',res)
+            console.log('delete', res)
         })
         .catch((e) => {
             const error = e.response
@@ -121,5 +137,5 @@ export const deleteCard = (id: string, cardId: string) => (dispatch: ThunkDispat
                 : (e.message + ', more details in the console')
             dispatch(setErrorAC(error))
         })
-        .finally(()=>dispatch(loadingAC(false)))
+        .finally(() => dispatch(loadingAC(false)))
 }

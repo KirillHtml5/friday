@@ -7,7 +7,7 @@ import {LoginContainer} from "../../../n2-common/c1-auth/login/LoginContainer";
 import {NewPasswordContainer} from "../../../n2-common/c1-auth/NewPassword/NewPasswordContainer";
 import Profile from "../../../n2-common/c1-auth/profile/k1-ui/Profile";
 import {PacksPage} from "../../../n2-common/c2-cards/packs/p1-ui/PacksPage";
-import {CardsPage} from "../../../n2-common/c2-cards/x2-cards-page/cardsPage";
+import {CardsPage} from "../../../n2-common/c2-cards/cards/x2-cards-page/cardsPage";
 
 
 
