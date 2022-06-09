@@ -3,7 +3,6 @@ import {useDispatch} from "react-redux";
 import {deletePack, updatePack} from "../../../p2-bll/packsReducer";
 import s from '../PacksTable.module.css';
 import {useNavigate} from "react-router-dom";
-import {getCards} from "../../../../../../n1-main/m2-bll/reducers/Cards-reducer";
 
 
 
@@ -36,7 +35,6 @@ export const PackItem: FC<PackItemPropsType> = ({
     const navigate = useNavigate()
     const openCardPage = () => {
         navigate(`/cards/${pack_id}`)
-        dispatch(getCards(pack_id))
     }
 
     return (

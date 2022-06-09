@@ -28,6 +28,7 @@ export type CardsType = {
 
 export type CardsStateType = {
     cards: Array<CardsType>,
+    packUserId:string
     cardsPack_id: string
     cardAnswer?: string,
     cardQuestion?: string,
@@ -40,6 +41,7 @@ export type CardsStateType = {
 
 const initState: CardsStateType = {
     cards: [],
+    packUserId:'',
     cardsPack_id: '',
     cardAnswer: '',
     cardQuestion: '',
@@ -54,7 +56,7 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
     switch (action.type) {
         case 'SET-CARDS': {
             return {
-                ...state, cards: action.cards
+                ...state, cards: action.cards,packUserId:action.packUserId
             }
         }
         default: {
@@ -66,8 +68,8 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
 ////actions
 export type ActionCards = ReturnType<typeof setCards> | setErrorACType | loadingACType
 
-export const setCards = (cards: CardsType[]) => ({
-    type: 'SET-CARDS', cards
+export const setCards = (cards: CardsType[],packUserId:string) => ({
+    type: 'SET-CARDS', cards,packUserId
 } as const)
 
 
@@ -78,9 +80,9 @@ export type ThunkDispatchActionType = ThunkDispatch<ReduxRootType, unknown, Acti
 
 export const getCards = (cardsPack_id: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
     dispatch(loadingAC(true))
-    CardsApi.getCards(cardsPack_id)
+    CardsApi.getCards({cardsPack_id})
         .then(res => {
-            dispatch(setCards(res.cards))
+            dispatch(setCards(res.cards,res.packUserId))
             console.log('cards', res.cards)
         })
         .catch((e) => {

@@ -20,8 +20,9 @@ export type CardsParamsType = {
 }
 
 export const CardsApi = {
-    getCards(cardsPack_id:string) {
-        return instance.get<CardsStateType>(`/cards/card?cardsPack_id=${cardsPack_id}`)
+    getCards({cardsPack_id,sortCards,pageCount,cardQuestion,page,cardAnswer,min,max}:CardsParamsType) {
+        return instance.get<CardsStateType>(`/cards/card`,
+            {params:{cardsPack_id,sortCards,max,min,cardAnswer,page,pageCount,cardQuestion}as CardsParamsType})
             .then(res => res.data)
     },
     addCard(cardsPack_id: string) {
