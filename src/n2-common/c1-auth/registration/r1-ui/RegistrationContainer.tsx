@@ -19,6 +19,10 @@ export const RegistrationContainer = () => {
     const dispatch = useDispatch<any>()
     const navigate = useNavigate()
 
+    const navigateToLogin = () => {
+        return navigate("/login")
+    }
+
     useEffect(() => {
         if (isRegistered) {
             return navigate("/login")
@@ -27,7 +31,7 @@ export const RegistrationContainer = () => {
             dispatch(setRegistration(false))
             dispatch(setError(null))
         }
-    }, [isRegistered]);
+    }, [isRegistered, dispatch, navigate]);
 
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
@@ -47,6 +51,7 @@ export const RegistrationContainer = () => {
                       password={password} setPassword={onChangePassword}
                       password2={password2} setPassword2={onChangePassword2}
                       error={error} signUp={signUp} loading={loading}
+                      navigateToLogin={navigateToLogin}
         />
     );
 };

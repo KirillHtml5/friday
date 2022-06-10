@@ -14,3 +14,8 @@
 .buttonsBlock > button {
     margin: 0 10px;
 }
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+}

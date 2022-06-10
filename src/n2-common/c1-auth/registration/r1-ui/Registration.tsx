@@ -1,6 +1,8 @@
 import React, {ChangeEvent, FC} from 'react'
-import {NavLink} from 'react-router-dom'
 import s from './Registration.module.css'
+import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import SuperInputText from "../../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
+import c from "../../loading/loading.module.css";
 
 type RegistrationPropsType = {
     email: string
@@ -12,6 +14,7 @@ type RegistrationPropsType = {
     error: null | string
     signUp: () => void
     loading: boolean
+    navigateToLogin: () => void
 }
 
 
@@ -19,50 +22,53 @@ export const Registration: FC<RegistrationPropsType> = (
     {
         email, setEmail, password,
         setPassword, password2, setPassword2,
-        error, signUp, loading
+        error, signUp, loading,
+        navigateToLogin,
     }
 ) => {
     return (
         loading
             ?
-            <div>Loading ...</div>
+            <div className={c.preloader}/>
             :
             <div className={s.container}>
-                <h1>it-incubator</h1>
-                <h3>Sign Up</h3>
-                <input
+                <h2>REGISTRATION</h2>
+                <SuperInputText
+                    className={s.input}
                     name={"email"}
                     type={"text"}
                     value={email}
                     onChange={setEmail}
-                    placeholder={"Enter your email..."}
+                    placeholder={"Enter email..."}
                 />
-                <input
+                <SuperInputText
+                    className={s.input}
                     name={"password"}
                     type={"text"}
                     value={password}
                     onChange={setPassword}
-                    placeholder={"Enter your password..."}
+                    placeholder={"Enter password..."}
                 />
-                <input name={"password2"}
-                       type={"text"}
-                       value={password2}
-                       onChange={setPassword2}
-                       placeholder={"Confirm your password..."}
+                <SuperInputText
+                    className={s.input}
+                    name={"password2"}
+                    type={"text"}
+                    value={password2}
+                    onChange={setPassword2}
+                    placeholder={"Confirm password..."}
                 />
+                <div className={s.error}>{error}</div>
                 <div className={s.buttonsBlock}>
-                    <NavLink to="/login">
+                    <SuperButton onClick={navigateToLogin}>
                         Cancel
-                    </NavLink>
-                    <button
-                        type={"submit"}
+                    </SuperButton>
+                    <SuperButton
                         onClick={signUp}
-                        disabled={loading}
+                        disabled={loading || password !== password2}
                     >
                         Register
-                    </button>
+                    </SuperButton>
                 </div>
-                <div>{error}</div>
             </div>
     )
 };

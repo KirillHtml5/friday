@@ -21,7 +21,7 @@ export const firstUser: UserType = {
     _id: "",
     email: "",
     name: "",
-    avatar: "hello",
+    avatar: "",
     publicCardPacksCount: 0,
 
     created: new Date(),

@@ -1,11 +1,5 @@
-import axios from "axios";
-import {CardsStateType} from "../../../n1-main/m2-bll/reducers/Cards-reducer";
-
-export const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
-    // baseURL: 'https://neko-back.herokuapp.com/2.0',
-    withCredentials: true,
-})
+import {CardsStateType} from "../../n1-main/m2-bll/reducers/Cards-reducer";
+import {instance} from "../../n1-main/m3-bll/instance";
 
 export type CardsParamsType = {
     cardsPack_id: string
