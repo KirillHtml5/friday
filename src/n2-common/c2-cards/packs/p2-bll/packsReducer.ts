@@ -63,7 +63,7 @@ export const setSortPacks = (sortPacks: string) => ({type: SET_SORT_PACKS, paylo
 export const setBelonging = (isMyPacks: boolean) => ({type: SET_BELONGING, payload: {isMyPacks}} as const)
 
 //thunks
-export const getPacks = (): AppThunk => {
+export const getPacks = (newPage?: number, newPageCount?: number): AppThunk => {
     return async (dispatch, getState: () => ReduxRootType) => {
         try {
             dispatch(loadingAC(true))

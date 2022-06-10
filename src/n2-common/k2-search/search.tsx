@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
 import c from './search.module.css'
+import {useDispatch} from "react-redux";
+import {setPackName} from "../c2-cards/packs/p2-bll/packsReducer";
 
 
 const Search = () => {
 
     const [searchValue, setSearchValue] = useState('')
+    const dispatch = useDispatch()
 
     const searchHandler = () => {
-        alert(searchValue)
+        dispatch(setPackName(searchValue))
         setSearchValue('')
-//    dispatch с запросом за карточками (searchValue)
+
     }
     return (
 
