@@ -64,7 +64,7 @@ export const Registration: FC<RegistrationPropsType> = (
                     </SuperButton>
                     <SuperButton
                         onClick={signUp}
-                        disabled={loading}
+                        disabled={loading || password !== password2}
                     >
                         Register
                     </SuperButton>

@@ -31,7 +31,7 @@ export const RegistrationContainer = () => {
             dispatch(setRegistration(false))
             dispatch(setError(null))
         }
-    }, [isRegistered]);
+    }, [isRegistered, dispatch, navigate]);
 
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)

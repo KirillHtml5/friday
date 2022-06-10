@@ -9,7 +9,7 @@ import {LogOutTC, ThunkDispatchActionType} from "../../m2-bll/reducers/Login-red
 const Header = () => {
     const isLoggedIn = useSelector<ReduxRootType, boolean>(state => state.login.isLoggedIn)
     const name = useSelector<ReduxRootType, string>(state => state.profile.user.name)
-    const avatar = useSelector<ReduxRootType, string>(state => state.profile.user.avatar)
+    // const avatar = useSelector<ReduxRootType, string>(state => state.profile.user.avatar)
     const dispatch = useDispatch<ThunkDispatchActionType>()
 
     const logoutUser = useCallback(() => {
@@ -61,7 +61,7 @@ const Header = () => {
                     </div>
                 </div>
                 :
-                <div className={s.info}></div>
+                <div className={s.info}/>
             }
 
         </div>

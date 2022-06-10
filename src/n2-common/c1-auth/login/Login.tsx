@@ -31,13 +31,29 @@ export const Login: React.FC<LoginType> = (props) => {
                 <h2>LOGIN</h2>
                 <div className={s.page}>
                     <div>
-                        <SuperInputText className={s.input} placeholder={'Enter email'} value={email}
-                                        onChange={setEmail}/></div>
+                        <SuperInputText
+                            className={s.input}
+                            name={"email"}
+                            placeholder={'Enter email...'}
+                            value={email}
+                            onChange={setEmail}/>
+                    </div>
                     <div>
-                        <SuperInputText className={s.input} type='password' placeholder={'Enter password'} value={password}
-                                        onChange={setPassword}/></div>
+                        <SuperInputText
+                            className={s.input}
+                            name={"password"}
+                            type={'password'}
+                            placeholder={'Enter password...'}
+                            value={password}
+                            onChange={setPassword}/>
+                    </div>
                     <div>
-                        <SuperCheckbox checked={rememberMe} onChangeChecked={setRememberMe}>Remember Me</SuperCheckbox>
+                        <SuperCheckbox
+                            checked={rememberMe}
+                            onChangeChecked={setRememberMe}
+                        >
+                            Remember Me
+                        </SuperCheckbox>
                     </div>
                     <span className={s.error}>{error}</span>
                     <div><SuperButton onClick={tryLogin}>Login</SuperButton></div>
