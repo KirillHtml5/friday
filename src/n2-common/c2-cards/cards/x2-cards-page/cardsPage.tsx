@@ -17,10 +17,11 @@ export const CardsPage = () => {
     const isLoad = useSelector<ReduxRootType, boolean>(state => state.loading.isLoad)
     const isLoggedIn = useSelector<ReduxRootType, boolean>(state => state.login.isLoggedIn)
     const navigate = useNavigate()
-    const myId = useSelector<ReduxRootType, string>(state => state.profile.user._id)
+    const userId = useSelector<ReduxRootType, string>(state => state.profile.user._id)
     const packUserId = useSelector<ReduxRootType, string>(state => state.cards.packUserId)
 
-    const {id} = useParams();
+    const {id} = useParams()
+
     let packId = ''
     if (id) {
         packId = id
@@ -43,7 +44,7 @@ export const CardsPage = () => {
             <CardsTable/>
             <div className={s.button}>
 
-                {myId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
+                {userId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
 
             </div>
         </div>)

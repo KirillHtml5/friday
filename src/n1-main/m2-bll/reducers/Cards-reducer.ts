@@ -80,7 +80,7 @@ export type ThunkDispatchActionType = ThunkDispatch<ReduxRootType, unknown, Acti
 
 export const getCards = (cardsPack_id: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
     dispatch(loadingAC(true))
-    CardsApi.getCards({cardsPack_id})
+    CardsApi.getCards({cardsPack_id, pageCount:10})
         .then(res => {
             dispatch(setCards(res.cards,res.packUserId))
             console.log('cards', res.cards)
