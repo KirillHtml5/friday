@@ -1,17 +1,30 @@
-
-.nav {
-    display: flex;
-    align-items: start;
-    justify-content: start;
-    flex-direction: column;
+.header {
     background-color: #2f3950;
-    padding-top: 20px;
-    padding-left: 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 0 10px;
+    font-size: 25px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .item a {
     color: white;
     text-decoration: none;
+    padding: 0 10px;
 }
 
 .item a:hover {
@@ -20,5 +33,48 @@
 
 .item a.activeLink {
     color: red;
-    font-size: 25px;
 }
+
+.info {
+    /*display: flex;*/
+    /*justify-content: center;*/
+    width: 150px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 150px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdownContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    font-size: 16px;
+}
+.dropdownContent a:hover {background-color: #ddd;}
+
+.info:hover .dropdownContent {display: block;}
+
+.info:hover .dropbtn {background-color: #3e8e41;}

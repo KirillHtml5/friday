@@ -1,45 +1,70 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {ReduxRootType} from "../../m2-bll/store/ReduxStore";
+import {LogOutTC, ThunkDispatchActionType} from "../../m2-bll/reducers/Login-reducer";
 
 
 const Header = () => {
+    const isLoggedIn = useSelector<ReduxRootType, boolean>(state => state.login.isLoggedIn)
+    const name = useSelector<ReduxRootType, string>(state => state.profile.user.name)
+    const avatar = useSelector<ReduxRootType, string>(state => state.profile.user.avatar)
+    const dispatch = useDispatch<ThunkDispatchActionType>()
+
+    const logoutUser = useCallback(() => {
+        dispatch(LogOutTC())
+    }, [dispatch])
+
     return (
-        <nav className={s.nav}>
-            <div className={s.item}>
-                <NavLink to='/login'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>LOGIN</NavLink>
+        <div className={s.header}>
+            <div className={s.title}>
+                CARDS
             </div>
-            <div className={s.item}>
-                <NavLink to='/registration'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>REGISTRATION</NavLink>
+            <div className={s.links}>
+                {isLoggedIn
+                    ?
+                    <>
+                        <div className={s.item}>
+                            <NavLink to='/'
+                                     className={({isActive}) => isActive ? s.activeLink : ''}>PROFILE</NavLink>
+                        </div>
+                        <div className={s.item}>
+                            <NavLink to='/packs'
+                                     className={({isActive}) => isActive ? s.activeLink : ''}>PACKS</NavLink>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className={s.item}>
+                            <NavLink to='/login'
+                                     className={({isActive}) => isActive ? s.activeLink : ''}>LOGIN</NavLink>
+                        </div>
+                        <div className={s.item}>
+                            <NavLink to='/registration'
+                                     className={({isActive}) => isActive ? s.activeLink : ''}>REGISTRATION</NavLink>
+                        </div>
+                        <div className={s.item}>
+                            <NavLink to='/recovery-password'
+                                     className={({isActive}) => isActive ? s.activeLink : ''}>RECOVERY</NavLink>
+                        </div>
+                    </>
+                }
             </div>
-            <div className={s.item}>
-                <NavLink to='/'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>PROFILE</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/404'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>404</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/recovery-password'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>RECOVERY PASSWORD</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/set-new-password'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>NEW
-                    PASSWORD</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/test'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>TEST</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/packs'
-                         className={({isActive}) => isActive ? s.activeLink : ''}>PACKS</NavLink>
-            </div>
-        </nav>
+            {isLoggedIn
+                ?
+                <div className={s.info}>
+                    {name}
+                    <div className={s.dropdownContent}>
+                        <NavLink to='/'>PROFILE</NavLink>
+                        <NavLink to="#" onClick={logoutUser}>LOG OUT</NavLink>
+                    </div>
+                </div>
+                :
+                <div className={s.info}></div>
+            }
+
+        </div>
     )
 }
 export default Header
