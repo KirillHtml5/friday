@@ -3,8 +3,9 @@
     flex-direction: column;
 }
 .input {
-    width: 200px;
+    width: 300px;
 }
 .error{
     color: red;
+    margin-bottom: 10px;
 }
