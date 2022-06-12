@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import c from './search.module.css'
-import {useDispatch} from "react-redux";
-import {setPackName} from "../c2-cards/packs/p2-bll/packsReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {setCurrentPage, setPackName} from "../c2-cards/packs/p2-bll/packsReducer";
+import {ReduxRootType} from "../../n1-main/m2-bll/store/ReduxStore";
 
 
 const Search = () => {
-
-    const [searchValue, setSearchValue] = useState('')
+    const value = useSelector<ReduxRootType, string>(state => state.packs.packName)
+    const [searchValue, setSearchValue] = useState(value)
     const dispatch = useDispatch()
 
     const searchHandler = () => {
         dispatch(setPackName(searchValue))
-        setSearchValue('')
+        dispatch(setCurrentPage(1))
 
     }
     return (
