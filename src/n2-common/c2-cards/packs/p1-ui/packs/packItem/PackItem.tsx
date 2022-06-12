@@ -5,7 +5,6 @@ import s from '../PacksTable.module.css';
 import {useNavigate} from "react-router-dom";
 
 
-
 type PackItemPropsType = {
     pack_id: string
     user_id: string
@@ -41,7 +40,7 @@ export const PackItem: FC<PackItemPropsType> = ({
         <tr>
             <td>{name}</td>
             <td>{cardsCount}</td>
-            <td>{updated}</td>
+            <td>{updated.slice(0, 10)}</td>
             <td>{createdBy}</td>
             <td className={s.buttonsBlock}>
                 {user_id === creator_id
