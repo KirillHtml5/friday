@@ -13,6 +13,7 @@ import {RecoveryActionsType, recoveryReducer} from "../../../n2-common/c1-auth/r
 import {reducerPag} from "../../../n2-common/k2-pagination/reducerPag";
 import {PacksActionsType, PacksReducer} from "../../../n2-common/c2-cards/packs/p2-bll/packsReducer";
 import {CardsReducer} from "../reducers/Cards-reducer";
+import {LearnActionsType, LearnReducer} from "../../../n2-common/c3-learn/l2-bll/learnReducer";
 
 let rootReducer = combineReducers({
     login: LoginReducer,
@@ -25,7 +26,8 @@ let rootReducer = combineReducers({
     pagination: reducerPag,
 
     packs: PacksReducer,
-    cards: CardsReducer
+    cards: CardsReducer,
+    learn: LearnReducer,
 })
 
 let store = legacy_createStore(rootReducer, applyMiddleware(thunk))
@@ -41,5 +43,6 @@ type RootActionsType =
     | RecoveryActionsType
     | PacksActionsType
     | loadingACType
+    | LearnActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, ReduxRootType, unknown, RootActionsType>
