@@ -1,0 +1,39 @@
+.container {
+    width: 450px;
+    /*min-height: 350px;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.questBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.grade {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.buttonsBlock {
+    margin-bottom: 15px;
+}
+
+.buttonsBlock > button {
+    margin: 0 10px;
+}

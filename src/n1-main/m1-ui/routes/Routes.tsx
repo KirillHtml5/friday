@@ -8,6 +8,7 @@ import {NewPasswordContainer} from "../../../n2-common/c1-auth/NewPassword/NewPa
 import Profile from "../../../n2-common/c1-auth/profile/k1-ui/Profile";
 import {PacksPage} from "../../../n2-common/c2-cards/packs/p1-ui/PacksPage";
 import {CardsPage} from "../../../n2-common/c2-cards/cards/x2-cards-page/cardsPage";
+import {LearnPage} from "../../../n2-common/c3-learn/l1-ui/LearnPage";
 
 
 
@@ -25,6 +26,7 @@ const MyRoutes = () => {
             <Route path={'packs'} element={<PacksPage/>}/>
             <Route path={'*'} element={<Navigate to={'/404'}/>}/>
             <Route path={'cards/:id'} element={<CardsPage/>}/>
+            <Route path={'learn/:id'} element={<LearnPage/>}/>
         </Routes>
     </div>
 }

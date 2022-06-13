@@ -36,21 +36,24 @@ export const PackItem: FC<PackItemPropsType> = ({
     const openCardPage = () => {
         navigate(`/cards/${pack_id}`)
     }
+    const openLearnPage = () => {
+        navigate(`/learn/${pack_id}`)
+    }
 
     return (
         <tr>
-            <td>{name}</td>
+            <td onClick={openCardPage} className={s.packName}>{name}</td>
             <td>{cardsCount}</td>
             <td>{updated}</td>
             <td>{createdBy}</td>
             <td className={s.buttonsBlock}>
                 {user_id === creator_id
                     ? <>
-                        <button onClick={openCardPage}>Learn</button>
+                        <button onClick={openLearnPage}>Learn</button>
                         <button onClick={updatePackHandler}>Edit</button>
                         <button onClick={deletePackHandler}>Delete</button>
                     </>
-                    : <button onClick={openCardPage}>Learn</button>
+                    : <button onClick={openLearnPage}>Learn</button>
 
                 }
             </td>
