@@ -1,16 +1,22 @@
 import c from './page.module.css'
-import {useDispatch, useSelector} from "react-redux";
-
-import {ReduxRootType} from "../../n1-main/m2-bll/store/ReduxStore";
+import {useDispatch} from "react-redux";
 import {createPages} from "./pagesCreator";
-import {setCurrentPage} from '../c2-cards/packs/p2-bll/packsReducer';
+import React from "react";
 
-export const Pagination = () => {
+export type PaginationType = {
+    currentPage: number
+    totalCount: number
+    pageCount: number
+    setCurrentPage: (page: number) => void
+}
+
+export const Pagination: React.FC<PaginationType> = (props) => {
     // получить данные со стейта
-    const currentPage = useSelector<ReduxRootType, number>(state => state.packs.page)
-    const totalCount = useSelector<ReduxRootType, number>(state => state.packs.cardPacksTotalCount)
-    const pageCount = useSelector<ReduxRootType, number>(state => state.packs.pageCount)
-    const dispatch = useDispatch()
+    // const currentPage = useSelector<ReduxRootType, number>(state => state.packs.page)
+    // const totalCount = useSelector<ReduxRootType, number>(state => state.packs.cardPacksTotalCount)
+    // const pageCount = useSelector<ReduxRootType, number>(state => state.packs.pageCount)
+    const {currentPage, totalCount, pageCount, setCurrentPage} = props
+    const dispatch = useDispatch<any>()
 
     const pagesCount = Math.ceil(totalCount / pageCount)
 

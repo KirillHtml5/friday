@@ -67,7 +67,10 @@ export const PacksPage = () => {
                 <button onClick={() => dispatch(setPackName('at'))}>NAME</button>
                 <button onClick={() => dispatch(setBelonging(true))}>My Packs</button>
                 <button onClick={() => dispatch(setBelonging(false))}>All packs</button>
-                <Pagination/>
+                <Pagination currentPage={page}
+                            pageCount={pageCount}
+                            totalCount={cardPacksTotalCount}
+                            setCurrentPage={setCurrentPage}/>
             </div>
     );
 };
