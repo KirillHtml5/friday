@@ -3,98 +3,94 @@ import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButto
 import {useNavigate, useParams} from "react-router-dom";
 import s from './LearnPage.module.css';
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
-import {Cards} from "../l3-dal/learnAPI";
+import {CardType} from "../l3-dal/learnAPI";
 import {useDispatch, useSelector} from "react-redux";
 import {getCards} from "../l2-bll/learnReducer";
 import {ReduxRootType} from "../../../n1-main/m2-bll/store/ReduxStore";
+import {PackType} from "../../c2-cards/packs/p3-dal/packsAPI";
+import {getCard} from "../../../n3-utils/random";
+
+const grades = [
+    {title: 'Did not know', grade: 1},
+    {title: 'Forgot', grade: 2},
+    {title: 'A lot of thought', grade: 3},
+    {title: 'Сonfused', grade: 4},
+    {title: 'Knew the answer', grade: 5}
+]
 
 export const LearnPage = () => {
+    let {packId} = useParams()
     const navigate = useNavigate()
-    const goBack = () => navigate(-1)
-    let {id} = useParams()
-    const [isAnswered, setIsAnswered] = useState<boolean>(false)
-    const showAnswer = () => {
-        setIsAnswered(!isAnswered)
-    }
-    const [raiting, setRaiting] = useState<number>(5)
     const dispatch = useDispatch<any>()
-    const cards = useSelector<ReduxRootType, Cards[]>(state => state.learn.cards)
+
+    const [isAnswered, setIsAnswered] = useState<boolean>(false)
+    const [grade, setGrade] = useState<number>()
+    const [card, setCard] = useState({} as CardType);
+    const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
+    const cards = useSelector<ReduxRootType, CardType[]>(state => state.learn.cards)
+
+    const closeLearnMode = () => navigate(-1)
+    const showAnswer = () => {
+        setIsAnswered(true)
+    }
+    const onNextClickHandler = () => {
+        // grade && dispatch(updatedGrade(grade, card._id))
+        setCard(getCard(cards))
+        setIsAnswered(false)
+    }
+
+    const namePack = packs.find(el => el._id === packId)?.name
 
     useEffect(() => {
-        if (!id) {
-            id = '1'
+        if (packId) {
+            dispatch(getCards(packId))
         }
-        dispatch(getCards(id))
-    }, [id])
+    }, [packId, dispatch])
+
+    useEffect(() => {
+        cards.length > 0 && setCard(getCard(cards))
+    }, [card, cards])
 
     return (
         <div className={s.container}>
-            <h2 className={s.title}>LEARN CARDS</h2>
-            {cards.length === 0
-                ?
-                <>
-                    <div className={s.error}>Cards not found...</div>
-                    <div className={s.buttonsBlock}>
-                        <SuperButton onClick={goBack}>
-                            Cancel
-                        </SuperButton>
-                    </div>
-                </>
-                :
-                <>
-                    <div className={s.questBlock}>
-                        <div><span>Question: </span>"{cards[0]?.question}"</div>
-                        {isAnswered && <div><span>Answer: </span>"{cards[0]?.answer}"</div>}
-                    </div>
-                    {isAnswered && <div className={s.grade}>
-                        <span className={s.title}>Rate youself:</span>
-                        <div className={s.checkboxBlock}>
-                            <SuperCheckbox
-                                checked={raiting === 1}
-                                onClick={() => setRaiting(1)}
-                            >
-                                Did not know
-                            </SuperCheckbox>
-                            <SuperCheckbox
-                                checked={raiting === 2}
-                                onClick={() => setRaiting(2)}
-                            >
-                                Forgot
-                            </SuperCheckbox>
-                            <SuperCheckbox
-                                checked={raiting === 3}
-                                onClick={() => setRaiting(3)}
-                            >
-                                A lot of thought
-                            </SuperCheckbox>
-                            <SuperCheckbox
-                                checked={raiting === 4}
+            <h2 className={s.title}>LEARN "{namePack}"</h2>
 
-                                onClick={() => setRaiting(4)}
-                            >
-                                Confused
-                            </SuperCheckbox>
-                            <SuperCheckbox
-                                checked={raiting === 5}
-                                onClick={() => setRaiting(5)}
-                            >
-                                Knew answer
-                            </SuperCheckbox>
-                        </div>
+            <div className={s.questBlock}>
+                <div>
+                    <span>Question: </span>"{card?.question}"
+                </div>
+                {isAnswered &&
+                    <div>
+                        <span>Answer: </span>"{card?.answer}"
                     </div>}
-                    <div className={s.buttonsBlock}>
-                        <SuperButton onClick={goBack}>
-                            Cancel
-                        </SuperButton>
-                        {!isAnswered && <SuperButton onClick={showAnswer}>
-                            Show answer
-                        </SuperButton>}
-                        {isAnswered && <SuperButton onClick={showAnswer}>
-                            Next
-                        </SuperButton>}
+            </div>
+
+            {isAnswered &&
+                <div className={s.grade}>
+                    <span className={s.title}>Rate yourself:</span>
+                    <div className={s.checkboxBlock}>
+                        {grades.map((el, index) => (
+                            <SuperCheckbox
+                                key={index}
+                                checked={grade === el.grade}
+                                onClick={() => setGrade(el.grade)}
+                            >
+                                {el.title}
+                            </SuperCheckbox>
+                        ))}
                     </div>
-                </>
-            }
+                </div>}
+
+            <div className={s.buttonsBlock}>
+                <SuperButton onClick={closeLearnMode}>
+                    Cancel
+                </SuperButton>
+                <SuperButton
+                    onClick={isAnswered ? onNextClickHandler : showAnswer}
+                >
+                    {isAnswered ? 'Next' : 'Show answer'}
+                </SuperButton>
+            </div>
         </div>
     );
 };

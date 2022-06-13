@@ -13,11 +13,11 @@ export const learnAPI = {
 }
 
 type CardsGetType = {
-    cards: Cards[]
+    cards: CardType[]
     cardsTotalCount: number
     packUserId: string
 }
-export type Cards = {
+export type CardType = {
     answer: string
     question: string
     cardsPack_id: string

@@ -26,7 +26,7 @@ const MyRoutes = () => {
             <Route path={'packs'} element={<PacksPage/>}/>
             <Route path={'*'} element={<Navigate to={'/404'}/>}/>
             <Route path={'cards/:id'} element={<CardsPage/>}/>
-            <Route path={'learn/:id'} element={<LearnPage/>}/>
+            <Route path={'learn/:packId'} element={<LearnPage/>}/>
         </Routes>
     </div>
 }
