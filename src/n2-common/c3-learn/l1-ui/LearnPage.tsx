@@ -25,37 +25,76 @@ export const LearnPage = () => {
             id = '1'
         }
         dispatch(getCards(id))
-    }, [])
+    }, [id])
 
     return (
         <div className={s.container}>
-            <h2>LEARN CARDS</h2>
-            <div className={s.questBlock}>
-                <div>{cards[0]?.question}</div>
-                {isAnswered && <div>{cards[0]?.answer}</div>}
-            </div>
-            {isAnswered && <div className={s.grade}>
-                <span className={s.title}>Rate youself:</span>
-                <div className={s.checkboxBlock}>
-                    <SuperCheckbox checked={raiting === 1} onClick={() => setRaiting(1)}>Did not know</SuperCheckbox>
-                    <SuperCheckbox checked={raiting === 2} onClick={() => setRaiting(2)}>Forgot</SuperCheckbox>
-                    <SuperCheckbox checked={raiting === 3} onClick={() => setRaiting(3)}>A lot of
-                        thought</SuperCheckbox>
-                    <SuperCheckbox checked={raiting === 4} onClick={() => setRaiting(4)}>Confused</SuperCheckbox>
-                    <SuperCheckbox checked={raiting === 5} onClick={() => setRaiting(5)}>Knew answer</SuperCheckbox>
-                </div>
-            </div>}
-            <div className={s.buttonsBlock}>
-                <SuperButton onClick={goBack}>
-                    Cancel
-                </SuperButton>
-                {!isAnswered && <SuperButton onClick={showAnswer}>
-                    Show answer
-                </SuperButton>}
-                {isAnswered && <SuperButton onClick={showAnswer}>
-                    Next
-                </SuperButton>}
-            </div>
+            <h2 className={s.title}>LEARN CARDS</h2>
+            {cards.length === 0
+                ?
+                <>
+                    <div className={s.error}>Cards not found...</div>
+                    <div className={s.buttonsBlock}>
+                        <SuperButton onClick={goBack}>
+                            Cancel
+                        </SuperButton>
+                    </div>
+                </>
+                :
+                <>
+                    <div className={s.questBlock}>
+                        <div><span>Question: </span>"{cards[0]?.question}"</div>
+                        {isAnswered && <div><span>Answer: </span>"{cards[0]?.answer}"</div>}
+                    </div>
+                    {isAnswered && <div className={s.grade}>
+                        <span className={s.title}>Rate youself:</span>
+                        <div className={s.checkboxBlock}>
+                            <SuperCheckbox
+                                checked={raiting === 1}
+                                onClick={() => setRaiting(1)}
+                            >
+                                Did not know
+                            </SuperCheckbox>
+                            <SuperCheckbox
+                                checked={raiting === 2}
+                                onClick={() => setRaiting(2)}
+                            >
+                                Forgot
+                            </SuperCheckbox>
+                            <SuperCheckbox
+                                checked={raiting === 3}
+                                onClick={() => setRaiting(3)}
+                            >
+                                A lot of thought
+                            </SuperCheckbox>
+                            <SuperCheckbox
+                                checked={raiting === 4}
+
+                                onClick={() => setRaiting(4)}
+                            >
+                                Confused
+                            </SuperCheckbox>
+                            <SuperCheckbox
+                                checked={raiting === 5}
+                                onClick={() => setRaiting(5)}
+                            >
+                                Knew answer
+                            </SuperCheckbox>
+                        </div>
+                    </div>}
+                    <div className={s.buttonsBlock}>
+                        <SuperButton onClick={goBack}>
+                            Cancel
+                        </SuperButton>
+                        {!isAnswered && <SuperButton onClick={showAnswer}>
+                            Show answer
+                        </SuperButton>}
+                        {isAnswered && <SuperButton onClick={showAnswer}>
+                            Next
+                        </SuperButton>}
+                    </div>
+                </>
+            }
         </div>
     );
 };
