@@ -1,39 +1,51 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import s from './LearnPage.module.css';
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 
 export const LearnPage = () => {
     const navigate = useNavigate()
     const goBack = () => navigate(-1)
+    const {id} = useParams()
     const [isAnswered, setIsAnswered] = useState<boolean>(false)
     const showAnswer = () => {
         setIsAnswered(!isAnswered)
     }
+    const [raiting, setRaiting] = useState<number>(5)
+
+
+    useEffect(() => {
+
+    }, [])
 
     return (
         <div className={s.container}>
-            <h2>LEARN PACK NAME</h2>
+            <h2>LEARN {id} </h2>
             <div className={s.questBlock}>
-                <div>Question: Question араво алово авовлоаваом воаол оваол ол ололо о оолол о ллло?</div>
-                {isAnswered && <div>Answer: Andk fjjk fjkdk djkfk jkd jkjdk jfk!</div>}
+                <div className={s.section}>Question: Question араво алово авовлоаваом воаол оваол ол ололо о оолол о ллло? f f f f f f f f</div>
+                {isAnswered && <div className={s.section}>Answer: Andk fjjk fjkdk djkfk jkd jkjdk jfk!</div>}
             </div>
             {isAnswered && <div className={s.grade}>
                 <span className={s.title}>Rate youself:</span>
-                <SuperCheckbox>Did not know</SuperCheckbox>
-                <SuperCheckbox>Forgot</SuperCheckbox>
-                <SuperCheckbox>A lot of thought</SuperCheckbox>
-                <SuperCheckbox>Confused</SuperCheckbox>
-                <SuperCheckbox>Knew answer</SuperCheckbox>
+                <div className={s.checkboxBlock}>
+                    <SuperCheckbox checked={raiting === 1} onClick={() => setRaiting(1)}>Did not know</SuperCheckbox>
+                    <SuperCheckbox checked={raiting === 2} onClick={() => setRaiting(2)}>Forgot</SuperCheckbox>
+                    <SuperCheckbox checked={raiting === 3} onClick={() => setRaiting(3)}>A lot of thought</SuperCheckbox>
+                    <SuperCheckbox checked={raiting === 4} onClick={() => setRaiting(4)}>Confused</SuperCheckbox>
+                    <SuperCheckbox checked={raiting === 5} onClick={() => setRaiting(5)}>Knew answer</SuperCheckbox>
+                </div>
             </div>}
             <div className={s.buttonsBlock}>
                 <SuperButton onClick={goBack}>
                     Cancel
                 </SuperButton>
-                <SuperButton onClick={showAnswer}>
+                {!isAnswered && <SuperButton onClick={showAnswer}>
                     Show answer
-                </SuperButton>
+                </SuperButton>}
+                {isAnswered && <SuperButton onClick={showAnswer}>
+                    Next
+                </SuperButton>}
             </div>
         </div>
     );

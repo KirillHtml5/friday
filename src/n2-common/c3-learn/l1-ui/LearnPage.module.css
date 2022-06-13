@@ -1,6 +1,5 @@
 .container {
-    width: 450px;
-    /*min-height: 350px;*/
+    width: fit-content;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
@@ -16,15 +15,22 @@
 .questBlock {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     margin-bottom: 15px;
+    text-align: start;
+    max-width: 450px;
 }
 
 .grade {
-    display: flex;
-    flex-direction: column;
     margin-bottom: 15px;
 }
+
+.checkboxBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 5px;
+}
+
 .title {
     font-weight: bold;
     margin-bottom: 8px;
