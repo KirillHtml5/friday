@@ -2,7 +2,7 @@ import {CardsTable} from "../x1-table/CardsTable";
 import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import {
-    addCard, CardsStateType, changeCardsPerPage, changeSearchQuestion,
+    addCard, CardsStateType, changeCardsPerPage, changeSearchAnswer, changeSearchQuestion,
     getCards,
     ThunkDispatchActionType
 } from "../../../../n1-main/m2-bll/reducers/Cards-reducer";
@@ -53,10 +53,12 @@ export const CardsPage = () => {
     const searchByQuestion = () => {
         dispatch(changeSearchQuestion(changeQuestion))
         dispatch(getCards(packId))
+        setChangeAnswer('')
     }
     const searchByAnswer = () => {
-        dispatch(changeSearchQuestion(changeQuestion))
+        dispatch(changeSearchAnswer(changeAnswer))
         dispatch(getCards(packId))
+        setChangeAnswer('')
     }
 
     const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
