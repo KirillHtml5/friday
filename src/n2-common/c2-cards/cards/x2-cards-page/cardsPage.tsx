@@ -12,7 +12,6 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import c from '../../../c1-auth/loading/loading.module.css';
 import s from './cardsPage.module.css';
-import SuperSelect from "../../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
 import SuperInputText from "../../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {CardsPagination} from "../x1-table/cardsItems/cardsPagination";
@@ -80,7 +79,7 @@ export const CardsPage = () => {
                 {userId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
             </div>
             <CardsPagination/>
-            <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
+            {/*<SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>*/}
 
         </div>)
 }
