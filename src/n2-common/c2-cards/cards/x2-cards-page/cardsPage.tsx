@@ -3,11 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import {
     addCard,
-    CardsStateType,
+    CardsStateType, changeCardsPerPage, changeSearchAnswer,
+    changeSearchQuestion,
     getCards,
     ThunkDispatchActionType
 } from "../../../../n1-main/m2-bll/reducers/Cards-reducer";
-import { useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import c from '../../../c1-auth/loading/loading.module.css';
 import s from './cardsPage.module.css';
