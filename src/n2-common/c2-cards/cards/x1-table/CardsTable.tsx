@@ -1,22 +1,33 @@
 import s from '../../packs/p1-ui/packs/PacksTable.module.css'
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
-import {CardsType} from "../../../../n1-main/m2-bll/reducers/Cards-reducer";
+import {
+    CardsType, changeSort,
+    ThunkDispatchActionType
+} from "../../../../n1-main/m2-bll/reducers/Cards-reducer";
 import {CardsItem} from "./cardsItems/cardsItems";
 
-export const CardsTable = () => {
 
+
+export const CardsTable = () => {
+    const dispatch = useDispatch<ThunkDispatchActionType>()
     const cards = useSelector<ReduxRootType, CardsType[]>(state => state.cards.cards)
+    const [upper, setUpper] = useState<boolean>(false)
+    const newSortCards = (sort: string) => {
+        !upper ? dispatch(changeSort(`0${sort}`)) : dispatch(changeSort(`1${sort}`))
+        setUpper(!upper)
+    }
+
 
     return (<>
         <table className={s.table}>
             <thead>
             <tr>
-                <th>Question</th>
-                <th>Answer</th>
-                <th>Last Updated</th>
-                <th>Grade</th>
+                <th onClick={() => newSortCards('question')}>Question</th>
+                <th onClick={() => newSortCards('answer')}>Answer</th>
+                <th onClick={() => newSortCards('updated')}>Last Updated</th>
+                <th onClick={() => newSortCards('grade')}>Grade</th>
                 <th>Actions</th>
             </tr>
             </thead>

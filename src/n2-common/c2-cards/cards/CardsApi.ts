@@ -1,4 +1,4 @@
-import {CardsStateType} from "../../../n1-main/m2-bll/reducers/Cards-reducer";
+import { CardsStateType } from "../../../n1-main/m2-bll/reducers/Cards-reducer";
 import {instance} from "../../../n1-main/m3-bll/instance";
 
 
@@ -15,9 +15,9 @@ export type CardsParamsType = {
 }
 
 export const CardsApi = {
-    getCards({cardsPack_id, sortCards, pageCount, cardQuestion, page, cardAnswer, min, max}: CardsParamsType) {
-        return instance.get<CardsStateType>(`/cards/card`,
-            {params: {cardsPack_id, sortCards, max, min, cardAnswer, page, pageCount, cardQuestion} as CardsParamsType})
+    getCards(params:CardsParamsType) {
+        return instance.get(`/cards/card`,
+            {params})
             .then(res => res.data)
     },
     addCard(cardsPack_id: string) {

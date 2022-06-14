@@ -3,15 +3,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import {
     addCard,
+    CardsStateType,
     getCards,
-    setCurrentPageCards,
     ThunkDispatchActionType
 } from "../../../../n1-main/m2-bll/reducers/Cards-reducer";
-import {useEffect} from "react";
+import { useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import c from '../../../c1-auth/loading/loading.module.css';
 import s from './cardsPage.module.css';
-import {Pagination} from "../../../k2-pagination/pagination";
+import SuperSelect from "../../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
+import SuperInputText from "../../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
+import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import {CardsPagination} from "../x1-table/cardsItems/cardsPagination";
 
 
 export const CardsPage = () => {
@@ -21,50 +24,63 @@ export const CardsPage = () => {
     const navigate = useNavigate()
     const userId = useSelector<ReduxRootType, string>(state => state.profile.user._id)
     const packUserId = useSelector<ReduxRootType, string>(state => state.cards.packUserId)
-    const pageCount = useSelector<ReduxRootType, number>(state => state.cards.pageCount)
-    const totalCount = useSelector<ReduxRootType, number>(state => state.cards.cardsTotalCount)
-    const currentPage = useSelector<ReduxRootType, number>(state => state.cards.page)
-    // console.log('totalCount', totalCount)
-    // console.log('pageCount', pageCount)
-    // console.log('currentPage', currentPage)
-
     const {id} = useParams()
+    const page = useSelector<ReduxRootType, number>(state => state.cards.page)
+    const selectRatio = [5, 10, 15]
+    const pageCount = useSelector<ReduxRootType, number>(state => state.cards.pageCount)
+    const [newPageCount, setNewPageCount] = useState(pageCount)
+    const cardsSort = useSelector<ReduxRootType, string>(state => state.cards.sortCards)
+    const {cardQuestion} = useSelector<ReduxRootType, CardsStateType>(state => state.cards)
+    const {cardAnswer} = useSelector<ReduxRootType, CardsStateType>(state => state.cards)
+    const [changeQuestion, setChangeQuestion] = useState<string>(cardQuestion)
+    const [changeAnswer, setChangeAnswer] = useState<string>(cardAnswer)
 
     let packId = ''
     if (id) {
         packId = id
     }
 
-    // useEffect(() => {
-    //     if (!isLoggedIn) {
-    //         return navigate('/login')
-    //     } else dispatch(getCards(packId))
-    // }, [isLoggedIn, navigate, dispatch, packId, currentPage])
     useEffect(() => {
         if (!isLoggedIn) {
             return navigate('/login')
-        }
-    }, [isLoggedIn, navigate])
-    useEffect(() => {
-        dispatch(getCards(packId))
-    }, [currentPage, packId, dispatch])
+        } else dispatch(getCards(packId))
+    }, [isLoggedIn, navigate, dispatch, packId])
 
 
     const addNewCard = () => {
         dispatch(addCard(packId))
     }
 
+    const searchByQuestion = () => {
+        dispatch(changeSearchQuestion(changeQuestion))
+        dispatch(getCards(packId))
+        setChangeAnswer('')
+    }
+    const searchByAnswer = () => {
+        dispatch(changeSearchAnswer(changeAnswer))
+        dispatch(getCards(packId))
+        setChangeAnswer('')
+    }
+
+    const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
+        setNewPageCount(+e.currentTarget.value)
+        dispatch(changeCardsPerPage(+e.currentTarget.value))
+    }
+
     return (isLoad ?
         <div className={c.preloader}/> :
         <div>
+            <SuperInputText value={changeQuestion} onChangeText={setChangeQuestion} placeholder={'question search'}/>
+            <SuperButton onClick={searchByQuestion}>S Q</SuperButton>
+            <SuperInputText value={changeAnswer} onChangeText={setChangeAnswer} placeholder={'answer search'}/>
+            <SuperButton onClick={searchByAnswer}>S A</SuperButton>
             <CardsTable/>
             <div className={s.button}>
-
                 {userId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
-
             </div>
-            <Pagination pageCount={pageCount} totalCount={totalCount} currentPage={currentPage}
-                        setCurrentPage={setCurrentPageCards}/>
+            <CardsPagination/>
+            <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
+
         </div>)
 }
 
