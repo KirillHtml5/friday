@@ -46,3 +46,10 @@
     width: 70px;
     margin: 0 5px;
 }
+
+.packName {
+    cursor: pointer;
+}
+.packName:hover{
+    background: #cccccc;
+}
