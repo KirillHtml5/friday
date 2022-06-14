@@ -7,7 +7,6 @@ export const initialLearnState = {
     cards: [] as CardType[],
     cardsTotalCount: 0,
     packUserId: '',
-    packName: '',
 }
 
 export const LearnReducer = (state = initialLearnState, action: LearnActionsType): InitialLearnType => {
@@ -32,6 +31,19 @@ export const getCards = (id: string): AppThunk => {
         try {
             const {cards, cardsTotalCount, packUserId} = await learnAPI.getCards(id)
             dispatch(setCards(cards, cardsTotalCount, packUserId))
+        } catch (e: any) {
+            const error = e.response.data
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            console.log(error)
+        }
+    }
+}
+export const updateGrade = (grade: number, card_id: string, packId: string): AppThunk => {
+    return async (dispatch) => {
+        try {
+            await learnAPI.updatedGrade(grade, card_id)
+            dispatch(getCards(packId))
         } catch (e: any) {
             const error = e.response.data
                 ? e.response.data.error

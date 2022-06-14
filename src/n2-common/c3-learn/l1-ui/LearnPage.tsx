@@ -5,7 +5,7 @@ import s from './LearnPage.module.css';
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import {CardType} from "../l3-dal/learnAPI";
 import {useDispatch, useSelector} from "react-redux";
-import {getCards} from "../l2-bll/learnReducer";
+import {getCards, updateGrade} from "../l2-bll/learnReducer";
 import {ReduxRootType} from "../../../n1-main/m2-bll/store/ReduxStore";
 import {PackType} from "../../c2-cards/packs/p3-dal/packsAPI";
 import {getCard} from "../../../n3-utils/random";
@@ -28,28 +28,26 @@ export const LearnPage = () => {
     const [card, setCard] = useState({} as CardType);
     const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
     const cards = useSelector<ReduxRootType, CardType[]>(state => state.learn.cards)
+    const namePack = packs.find(el => el._id === packId)?.name
 
     const closeLearnMode = () => navigate(-1)
     const showAnswer = () => {
         setIsAnswered(true)
     }
-    const onNextClickHandler = () => {
-        // grade && dispatch(updatedGrade(grade, card._id))
+    const onNextClickHandler = async () => {
+        grade && packId && await dispatch(updateGrade(grade, card._id, packId))
         setCard(getCard(cards))
         setIsAnswered(false)
     }
-
-    const namePack = packs.find(el => el._id === packId)?.name
 
     useEffect(() => {
         if (packId) {
             dispatch(getCards(packId))
         }
-    }, [packId, dispatch])
-
+    }, [])
     useEffect(() => {
         cards.length > 0 && setCard(getCard(cards))
-    }, [card, cards])
+    }, [cards])
 
     return (
         <div className={s.container}>

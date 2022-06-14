@@ -10,6 +10,10 @@ export const learnAPI = {
         })
         return res.data
     },
+    updatedGrade: async (grade: number, card_id: string) => {
+        const res = await instance.put(`/cards/grade`, {grade, card_id})
+        return res.data
+    },
 }
 
 type CardsGetType = {
