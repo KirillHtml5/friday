@@ -38,7 +38,6 @@ export type CardsStateType = {
     sortCards: string,
     page: number,
     pageCount: number,
-    direction: 1 | 0
 }
 
 const initState: CardsStateType = {
@@ -52,8 +51,7 @@ const initState: CardsStateType = {
     cardsTotalCount: 0,
     sortCards: '0grade',
     page: 1,
-    pageCount: 5,
-    direction: 1
+    pageCount: 5
 }
 
 export const CardsReducer = (state = initState, action: ActionCards): CardsStateType => {
@@ -62,15 +60,15 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
             return {
                 ...state,
                 cards: action.payload.cards,
-                cardsPack_id: action.payload.cardsPack_id,
-                packUserId: action.payload.packUserId,
-                sortCards: action.payload.sortCards,
+                // cardsPack_id: action.payload.cardsPack_id,
+                // packUserId: action.payload.packUserId,
+                // sortCards: action.payload.sortCards,
                 page: action.payload.page,
                 pageCount: action.payload.pageCount,
-                max: action.payload.max,
-                min: action.payload.min,
-                cardAnswer: action.payload.cardAnswer,
-                cardQuestion: action.payload.cardQuestion,
+                // max: action.payload.max,
+                // min: action.payload.min,
+                // cardAnswer: action.payload.cardAnswer,
+                // cardQuestion: action.payload.cardQuestion,
                 cardsTotalCount: action.payload.cardsTotalCount
             }
         }

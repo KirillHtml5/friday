@@ -2,7 +2,7 @@ import {CardsTable} from "../x1-table/CardsTable";
 import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import {
-    addCard, CardsStateType, changeCardsPerPage, changeSearchAnswer, changeSearchQuestion,
+    addCard, CardsStateType, changeCardsPerPage, changeSearchQuestion,
     getCards,
     ThunkDispatchActionType
 } from "../../../../n1-main/m2-bll/reducers/Cards-reducer";
@@ -13,6 +13,7 @@ import s from './cardsPage.module.css';
 import SuperSelect from "../../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
 import SuperInputText from "../../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import {CardsPagination} from "../x1-table/cardsItems/cardsPagination";
 
 
 export const CardsPage = () => {
@@ -42,7 +43,7 @@ export const CardsPage = () => {
         if (!isLoggedIn) {
             return navigate('/login')
         } else dispatch(getCards(packId))
-    }, [isLoggedIn, navigate, dispatch, packId,page,pageCount])
+    }, [isLoggedIn, navigate, dispatch, packId,pageCount,page,cardsSort,cardAnswer,cardQuestion])
 
 
     const addNewCard = () => {
@@ -54,7 +55,7 @@ export const CardsPage = () => {
         dispatch(getCards(packId))
     }
     const searchByAnswer = () => {
-        dispatch(changeSearchAnswer(changeAnswer))
+        dispatch(changeSearchQuestion(changeQuestion))
         dispatch(getCards(packId))
     }
 
@@ -74,6 +75,7 @@ export const CardsPage = () => {
             <div className={s.button}>
                 {userId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
             </div>
+            <CardsPagination/>
             <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
 
         </div>)
