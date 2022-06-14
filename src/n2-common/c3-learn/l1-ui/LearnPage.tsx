@@ -28,6 +28,7 @@ export const LearnPage = () => {
     const [card, setCard] = useState({} as CardType);
     const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
     const cards = useSelector<ReduxRootType, CardType[]>(state => state.learn.cards)
+    const isFetching = useSelector<ReduxRootType, boolean>(state => state.learn.isFetching)
     const namePack = packs.find(el => el._id === packId)?.name
 
     const closeLearnMode = () => navigate(-1)
@@ -55,7 +56,7 @@ export const LearnPage = () => {
 
             <div className={s.questBlock}>
                 <div>
-                    <span>Question: </span>"{card?.question}"
+                    <span>Question: </span>"{isFetching ? "Loading..." : card?.question}"
                 </div>
                 {isAnswered &&
                     <div>
