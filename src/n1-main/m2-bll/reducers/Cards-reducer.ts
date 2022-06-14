@@ -51,7 +51,7 @@ const initState: CardsStateType = {
     cardsTotalCount: 0,
     sortCards: '0grade',
     page: 1,
-    pageCount: 3
+    pageCount: 5
 }
 
 export const CardsReducer = (state = initState, action: ActionCards): CardsStateType => {
@@ -105,7 +105,7 @@ export type ActionCards =
     |ReturnType<typeof changeSearchAnswer>
 
 export const setCards = (payload: {
-    cards: CardsType[], packUserId: string, cardsPack_id: string, cardAnswer: string, cardQuestion: string, min: number, max: number, sortCards: '0grade' | '1grade',
+    cards: CardsType[], packUserId: string, cardsPack_id: string, cardAnswer: string, cardQuestion: string, min: number, max: number, sortCards: string,
     page: number, pageCount: number, cardsTotalCount: number
 }) => ({
     type: 'SET-CARDS', payload

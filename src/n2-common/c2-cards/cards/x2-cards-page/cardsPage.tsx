@@ -15,6 +15,7 @@ import s from './cardsPage.module.css';
 import SuperInputText from "../../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {CardsPagination} from "../x1-table/cardsItems/cardsPagination";
+import SuperSelect from "../../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
 
 
 export const CardsPage = () => {
@@ -44,7 +45,7 @@ export const CardsPage = () => {
         if (!isLoggedIn) {
             return navigate('/login')
         } else dispatch(getCards(packId))
-    }, [isLoggedIn, navigate, dispatch, packId])
+    }, [isLoggedIn, navigate, dispatch, packId, cardsSort,cardAnswer,cardQuestion,pageCount,page])
 
 
     const addNewCard = () => {
@@ -59,7 +60,6 @@ export const CardsPage = () => {
     const searchByAnswer = () => {
         dispatch(changeSearchAnswer(changeAnswer))
         dispatch(getCards(packId))
-        setChangeAnswer('')
     }
 
     const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -79,7 +79,7 @@ export const CardsPage = () => {
                 {userId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
             </div>
             <CardsPagination/>
-            {/*<SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>*/}
+            <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
 
         </div>)
 }
