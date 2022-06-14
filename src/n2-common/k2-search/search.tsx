@@ -19,7 +19,8 @@ const Search = () => {
     return (
 
         <div className={c.search}>
-            <SuperInputText
+            Search packs
+            <input
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.currentTarget.value)}
                 type={"text"} placeholder={"input name"}

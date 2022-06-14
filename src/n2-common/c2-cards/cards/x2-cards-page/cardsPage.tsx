@@ -24,9 +24,9 @@ export const CardsPage = () => {
     const pageCount = useSelector<ReduxRootType, number>(state => state.cards.pageCount)
     const totalCount = useSelector<ReduxRootType, number>(state => state.cards.cardsTotalCount)
     const currentPage = useSelector<ReduxRootType, number>(state => state.cards.page)
-    console.log('totalCount', totalCount)
-    console.log('pageCount', pageCount)
-    console.log('currentPage', currentPage)
+    // console.log('totalCount', totalCount)
+    // console.log('pageCount', pageCount)
+    // console.log('currentPage', currentPage)
 
     const {id} = useParams()
 

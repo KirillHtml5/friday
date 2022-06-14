@@ -16,7 +16,7 @@ const SET_BELONGING = 'PACKS/SET_SORT_PACKS'
 const initialState: InitPacksStateType = {
     cardPacks: [],
     cardPacksTotalCount: 0,
-    max: 103,
+    max: 150,
     min: 0,
     page: 1,
     pageCount: 10,
@@ -77,6 +77,7 @@ export const getPacks = (newPage?: number, newPageCount?: number): AppThunk => {
             }
             dispatch(setPacks(res.cardPacks))
             dispatch(setCardPacksTotalCount(res.cardPacksTotalCount))
+            dispatch(setMin(min))
         } catch (e: any) {
             const error = e.response.data
                 ? e.response.data.error
