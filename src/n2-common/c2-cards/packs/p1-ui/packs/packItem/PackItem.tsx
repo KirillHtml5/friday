@@ -1,9 +1,8 @@
 import React, {FC, useState} from 'react';
-import {useDispatch} from "react-redux";
-import {updatePack} from "../../../p2-bll/packsReducer";
 import s from '../PacksTable.module.css';
 import {useNavigate} from "react-router-dom";
 import {DeletePackModal} from '../../modalPacks/m2-deletePackModal/DeletePackModal';
+import {UpdatePackModal} from "../../modalPacks/m3-updatePackModal/UpdatePackModal";
 
 
 type PackItemPropsType = {
@@ -14,6 +13,7 @@ type PackItemPropsType = {
     cardsCount: number
     createdBy: string
     updated: string
+    isPrivate: boolean
 }
 
 export const PackItem: FC<PackItemPropsType> = ({
@@ -23,18 +23,19 @@ export const PackItem: FC<PackItemPropsType> = ({
                                                     name,
                                                     cardsCount,
                                                     createdBy,
-                                                    updated
+                                                    updated,
+                                                    isPrivate,
                                                 }) => {
 
-    const [showDeleteModal, setDeleteModal] = useState<boolean>(false)
-    const dispatch = useDispatch<any>()
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
+    const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false)
     const navigate = useNavigate()
 
     const deletePackHandler = () => {
-        setDeleteModal(true)
+        setShowDeleteModal(true)
     }
     const updatePackHandler = () => {
-        dispatch(updatePack(pack_id, 'Updated title'))
+        setShowUpdateModal(true)
     }
     const openCardPage = () => {
         navigate(`/cards/${pack_id}`)
@@ -62,10 +63,19 @@ export const PackItem: FC<PackItemPropsType> = ({
             </td>
             {showDeleteModal &&
                 <DeletePackModal
-                    setShowModal={setDeleteModal}
+                    setShowModal={setShowDeleteModal}
                     name={name}
                     pack_id={pack_id}
-                />}
+                />
+            }
+            {showUpdateModal &&
+                <UpdatePackModal
+                    setShowModal={setShowUpdateModal}
+                    name={name}
+                    pack_id={pack_id}
+                    isPrivate={isPrivate}
+                />
+            }
         </tr>
     );
 };

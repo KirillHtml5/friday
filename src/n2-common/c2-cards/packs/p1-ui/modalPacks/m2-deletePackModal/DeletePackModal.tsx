@@ -18,10 +18,7 @@ export const DeletePackModal: FC<DeletePackModalType> = ({setShowModal, name, pa
         dispatch(deletePack(pack_id))
         setShowModal(false)
     }
-
-    const closeDeletePackModal = () => {
-        setShowModal(false)
-    }
+    const closeDeletePackModal = () => setShowModal(false)
 
     return (
         <Modal setShow={setShowModal} title={'Delete Pack'}>

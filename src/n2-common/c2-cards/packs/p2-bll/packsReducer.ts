@@ -115,10 +115,10 @@ export const deletePack = (pack_id: string): AppThunk => {
         }
     }
 }
-export const updatePack = (pack_id: string, title: string): AppThunk => {
+export const updatePack = (pack_id: string, title: string, isPrivate: boolean): AppThunk => {
     return async (dispatch) => {
         try {
-            await PacksAPI.updatePack(pack_id, title)
+            await PacksAPI.updatePack(pack_id, title, isPrivate)
             dispatch(getPacks())
         } catch (e: any) {
             const error = e.response.data

@@ -31,11 +31,12 @@ export const PacksAPI = {
         })
         return response.data
     },
-    updatePack: async (_id: string, name: string) => {
+    updatePack: async (_id: string, name: string, isPrivate: boolean) => {
         const response = await instance.put('cards/pack', {
             cardsPack: {
                 _id,
                 name,
+                private: isPrivate,
             }
         })
         return response.data
