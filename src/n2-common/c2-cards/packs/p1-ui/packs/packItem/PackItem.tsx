@@ -1,8 +1,9 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {deletePack, updatePack} from "../../../p2-bll/packsReducer";
+import {updatePack} from "../../../p2-bll/packsReducer";
 import s from '../PacksTable.module.css';
 import {useNavigate} from "react-router-dom";
+import {DeletePackModal} from '../../modalPacks/m2-deletePackModal/DeletePackModal';
 
 
 type PackItemPropsType = {
@@ -24,14 +25,17 @@ export const PackItem: FC<PackItemPropsType> = ({
                                                     createdBy,
                                                     updated
                                                 }) => {
+
+    const [showDeleteModal, setDeleteModal] = useState<boolean>(false)
     const dispatch = useDispatch<any>()
+    const navigate = useNavigate()
+
     const deletePackHandler = () => {
-        dispatch(deletePack(pack_id))
+        setDeleteModal(true)
     }
     const updatePackHandler = () => {
         dispatch(updatePack(pack_id, 'Updated title'))
     }
-    const navigate = useNavigate()
     const openCardPage = () => {
         navigate(`/cards/${pack_id}`)
     }
@@ -56,6 +60,12 @@ export const PackItem: FC<PackItemPropsType> = ({
 
                 }
             </td>
+            {showDeleteModal &&
+                <DeletePackModal
+                    setShowModal={setDeleteModal}
+                    name={name}
+                    pack_id={pack_id}
+                />}
         </tr>
     );
 };

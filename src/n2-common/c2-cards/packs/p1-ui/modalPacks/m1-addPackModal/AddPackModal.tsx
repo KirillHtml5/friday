@@ -21,7 +21,6 @@ export const AddPackModal: FC<AddPackModalType> = ({setShowModal}) => {
         setNewPackName(e.currentTarget.value)
     }
     const addPackHandler = () => {
-        console.log(newPackName)
         dispatch(addPack(newPackName, isPrivate))
         setShowModal(false)
     }
