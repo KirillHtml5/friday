@@ -138,9 +138,9 @@ export const getCards = (cardsPack_id: string) => (dispatch: ThunkDispatchAction
         .finally(() => dispatch(loadingAC(false)))
 }
 
-export const addCard = (id: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
+export const addCard = (id: string, question: string, answer: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
     dispatch(loadingAC(true))
-    CardsApi.addCard(id)
+    CardsApi.addCard(id, question, answer)
         .then(res => {
             dispatch(getCards(id))
             console.log('add', res)

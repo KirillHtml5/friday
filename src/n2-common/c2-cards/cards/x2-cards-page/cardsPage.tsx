@@ -2,13 +2,12 @@ import {CardsTable} from "../x1-table/CardsTable";
 import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import {
-    addCard,
     CardsStateType, changeCardsPerPage, changeSearchAnswer,
     changeSearchQuestion,
     getCards,
     ThunkDispatchActionType
 } from "../../../../n1-main/m2-bll/reducers/Cards-reducer";
-import {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import c from '../../../c1-auth/loading/loading.module.css';
 import s from './cardsPage.module.css';
@@ -16,6 +15,7 @@ import SuperInputText from "../../../../n1-main/m1-ui/common/c1-SuperInputText/S
 import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {CardsPagination} from "../x1-table/cardsItems/cardsPagination";
 import SuperSelect from "../../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
+import {AddCardModal} from "../x3-cardsModal/c1-addCardModal/AddCardModal";
 
 
 export const CardsPage = () => {
@@ -35,6 +35,7 @@ export const CardsPage = () => {
     const {cardAnswer} = useSelector<ReduxRootType, CardsStateType>(state => state.cards)
     const [changeQuestion, setChangeQuestion] = useState<string>(cardQuestion)
     const [changeAnswer, setChangeAnswer] = useState<string>(cardAnswer)
+    const [showAddCardModal, setShowAddCardModal] = useState<boolean>(false)
 
     let packId = ''
     if (id) {
@@ -45,12 +46,7 @@ export const CardsPage = () => {
         if (!isLoggedIn) {
             return navigate('/login')
         } else dispatch(getCards(packId))
-    }, [isLoggedIn, navigate, dispatch, packId, cardsSort,cardAnswer,cardQuestion,pageCount,page])
-
-
-    const addNewCard = () => {
-        dispatch(addCard(packId))
-    }
+    }, [isLoggedIn, navigate, dispatch, packId, cardsSort, cardAnswer, cardQuestion, pageCount, page])
 
     const searchByQuestion = () => {
         dispatch(changeSearchQuestion(changeQuestion))
@@ -61,26 +57,37 @@ export const CardsPage = () => {
         dispatch(changeSearchAnswer(changeAnswer))
         dispatch(getCards(packId))
     }
-
     const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
         setNewPageCount(+e.currentTarget.value)
         dispatch(changeCardsPerPage(+e.currentTarget.value))
     }
+    const openAddCardModal = () => {
+        setShowAddCardModal(true)
+    }
 
     return (isLoad ?
-        <div className={c.preloader}/> :
-        <div>
-            <SuperInputText value={changeQuestion} onChangeText={setChangeQuestion} placeholder={'question search'}/>
-            <SuperButton onClick={searchByQuestion}>S Q</SuperButton>
-            <SuperInputText value={changeAnswer} onChangeText={setChangeAnswer} placeholder={'answer search'}/>
-            <SuperButton onClick={searchByAnswer}>S A</SuperButton>
-            <CardsTable/>
-            <div className={s.button}>
-                {userId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
-            </div>
-            <CardsPagination/>
-            <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
-
-        </div>)
+            <div className={c.preloader}/> :
+            <>
+                <div className={s.addBlock}>
+                    <SuperButton onClick={openAddCardModal}>Add New Card</SuperButton>
+                </div>
+                <div className={s.searchBlock}>
+                    <div className={s.inputBlock}>
+                        <SuperInputText value={changeQuestion} onChangeText={setChangeQuestion}
+                                        placeholder={'question search'} className={s.input}/>
+                        <SuperButton onClick={searchByQuestion}>Search Question</SuperButton>
+                    </div>
+                    <div className={s.inputBlock}>
+                        <SuperInputText value={changeAnswer} onChangeText={setChangeAnswer}
+                                        placeholder={'answer search'} className={s.input}/>
+                        <SuperButton onClick={searchByAnswer}>Search Answer</SuperButton>
+                    </div>
+                </div>
+                <CardsTable/>
+                <CardsPagination/>
+                <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
+                {showAddCardModal && <AddCardModal setShowModal={setShowAddCardModal} packId={packId}/>}
+            </>
+    )
 }
 

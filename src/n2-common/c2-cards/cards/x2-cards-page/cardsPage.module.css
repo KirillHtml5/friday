@@ -1,10 +1,31 @@
-.button button{
+.button button {
     padding: 5px 10px;
     width: 70px;
     margin: 0 5px;
     cursor: pointer;
 }
-.button{
+
+.button {
     display: flex;
     justify-content: center;
+}
+
+.searchBlock {
+    display: flex;
+    justify-content: space-around;
+}
+
+.input {
+    width: 300px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.inputBlock button {
+    margin: 0 10px;
+    height: 80%;
+}
+
+.addBlock {
+    margin: 10px 0;
 }

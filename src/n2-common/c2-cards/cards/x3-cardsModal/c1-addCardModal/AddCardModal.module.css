@@ -12,3 +12,8 @@
 .block {
     margin-bottom: 15px;
 }
+
+.private {
+    font-weight: bold;
+    font-size: 18px;
+}
