@@ -13,9 +13,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import c from '../../../c1-auth/loading/loading.module.css';
 import s from './cardsPage.module.css';
 import SuperInputText from "../../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
-import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {CardsPagination} from "../x1-table/cardsItems/cardsPagination";
 import SuperSelect from "../../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
+import useDebounce from "../../../../n3-utils/useDebounce";
 
 
 export const CardsPage = () => {
@@ -35,6 +35,8 @@ export const CardsPage = () => {
     const {cardAnswer} = useSelector<ReduxRootType, CardsStateType>(state => state.cards)
     const [changeQuestion, setChangeQuestion] = useState<string>(cardQuestion)
     const [changeAnswer, setChangeAnswer] = useState<string>(cardAnswer)
+    const debounceQuestion = useDebounce(changeQuestion,1500)
+    const debounceAnswer = useDebounce(changeAnswer,1500)
 
     let packId = ''
     if (id) {
@@ -45,21 +47,14 @@ export const CardsPage = () => {
         if (!isLoggedIn) {
             return navigate('/login')
         } else dispatch(getCards(packId))
-    }, [isLoggedIn, navigate, dispatch, packId, cardsSort,cardAnswer,cardQuestion,pageCount,page])
+        dispatch(changeSearchQuestion(debounceQuestion))
+        dispatch(changeSearchAnswer(changeAnswer))
+    }, [isLoggedIn, navigate, dispatch, packId, cardsSort
+        ,cardAnswer,cardQuestion,pageCount,page,debounceQuestion,debounceAnswer])
 
 
     const addNewCard = () => {
         dispatch(addCard(packId))
-    }
-
-    const searchByQuestion = () => {
-        dispatch(changeSearchQuestion(changeQuestion))
-        dispatch(getCards(packId))
-        setChangeAnswer('')
-    }
-    const searchByAnswer = () => {
-        dispatch(changeSearchAnswer(changeAnswer))
-        dispatch(getCards(packId))
     }
 
     const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -70,10 +65,10 @@ export const CardsPage = () => {
     return (isLoad ?
         <div className={c.preloader}/> :
         <div>
-            <SuperInputText value={changeQuestion} onChangeText={setChangeQuestion} placeholder={'question search'}/>
-            <SuperButton onClick={searchByQuestion}>S Q</SuperButton>
-            <SuperInputText value={changeAnswer} onChangeText={setChangeAnswer} placeholder={'answer search'}/>
-            <SuperButton onClick={searchByAnswer}>S A</SuperButton>
+            <div className={s.inputs}>
+                <SuperInputText value={changeQuestion} onChangeText={setChangeQuestion} placeholder={'question search'}/>
+                <SuperInputText value={changeAnswer} onChangeText={setChangeAnswer} placeholder={'answer search'}/>
+            </div>
             <CardsTable/>
             <div className={s.button}>
                 {userId === packUserId ? <button onClick={addNewCard}>Add Card</button> : ""}
