@@ -1,13 +1,13 @@
 import React, {FC, MouseEvent} from 'react';
 import s from './Modal.module.css';
 
-type AddPackModalType = {
+type ModalType = {
     setShow: (show: boolean) => void
     children: React.ReactNode
     title: string
 }
 
-export const Modal: FC<AddPackModalType> = ({setShow, children, title}) => {
+export const Modal: FC<ModalType> = ({setShow, children, title}) => {
 
     const closeModal = () => setShow(false)
     const onContentClick = (e: MouseEvent<HTMLDivElement>) => {

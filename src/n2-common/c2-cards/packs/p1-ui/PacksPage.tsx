@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {PacksTable} from "./packs/PacksTable";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addPack,
     getPacks,
     InitPacksStateType,
     setBelonging,
@@ -19,7 +18,7 @@ import {Pagination} from "../../../k2-pagination/pagination";
 import Search from "../../../k2-search/search";
 import {Slider} from "../../../k2-slider/slider";
 import Sort from "../../../k2-sort/sort";
-import sort from '../../../k2-sort/sort';
+import {AddPackModal} from "./modalPacks/m1-addPackModal/AddPackModal";
 
 export const PacksPage = () => {
     const isLoad = useSelector<ReduxRootType, boolean>(state => state.loading.isLoad)
@@ -52,26 +51,25 @@ export const PacksPage = () => {
         dispatch(getPacks())
     }, [packName, min, max, sortPacks, page, pageCount, cardPacksTotalCount, isMyPacks, dispatch])
 
-    const addPackHandler = () => {
-        dispatch(addPack('React'))
-    }
     const sliderChange = ({min, max}: { min: number; max: number }) => {
         dispatch(setMin(min))
         dispatch(setMax(max))
         console.log(min)
         console.log(max)
     }
+    const [showAddModal, setShowAddModal] = useState<boolean>(false)
+    const showAddModalHandler = () => setShowAddModal(true)
 
     return (
         isLoad
-            ? <div className={s.preloader}></div>
+            ? <div className={s.preloader}/>
             : <div style={{margin: "0 auto"}}>
                 <Search/>
                 {error && error}
                 <Slider min={min}
                         max={max}
                         onChange={sliderChange}/>
-                <button onClick={addPackHandler}>Add Task</button>
+                <button onClick={showAddModalHandler}>Add Task</button>
                 <PacksTable/>
                 <Sort/>
                 <button onClick={() => dispatch(setMax(12))}>MAX</button>
@@ -84,6 +82,7 @@ export const PacksPage = () => {
                             pageCount={pageCount}
                             totalCount={cardPacksTotalCount}
                             setCurrentPage={setCurrentPage}/>
+                {showAddModal && <AddPackModal setShowModal={setShowAddModal}/>}
             </div>
     );
 };

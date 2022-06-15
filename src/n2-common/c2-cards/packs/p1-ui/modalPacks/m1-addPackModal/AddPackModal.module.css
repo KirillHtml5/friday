@@ -1,0 +1,19 @@
+.input {
+    display: block;
+    width: 300px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.buttonsBlock button {
+    margin: 0 10px;
+}
+
+.block {
+    margin-bottom: 15px;
+}
+
+.private {
+    font-weight: bold;
+    font-size: 18px;
+}
