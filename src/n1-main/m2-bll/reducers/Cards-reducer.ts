@@ -49,7 +49,7 @@ const initState: CardsStateType = {
     min: 0,
     max: 6,
     cardsTotalCount: 0,
-    sortCards: '0grade',
+    sortCards: '',
     page: 1,
     pageCount: 5
 }
@@ -65,8 +65,8 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
                 // sortCards: action.payload.sortCards,
                 page: action.payload.page,
                 pageCount: action.payload.pageCount,
-                // max: action.payload.max,
-                // min: action.payload.min,
+                max: action.payload.max,
+                min: action.payload.min,
                 // cardAnswer: action.payload.cardAnswer,
                 // cardQuestion: action.payload.cardQuestion,
                 cardsTotalCount: action.payload.cardsTotalCount
@@ -81,11 +81,8 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
         case "CHANGE-SORT-TYPE": {
             return {...state, sortCards: action.sortCards}
         }
-        case "SEARCH-CARD-BY-QUESTION": {
-            return {...state, cardQuestion: action.question}
-        }
-        case "SEARCH-CARD-BY-ANSWER": {
-            return {...state, cardAnswer: action.answer}
+        case "SEARCH-CARD-BY": {
+            return {...state, cardQuestion: action.question, cardAnswer: action.answer}
         }
         default: {
             return state
@@ -101,8 +98,8 @@ export type ActionCards =
     | ReturnType<typeof setCurrentCardPage>
     | ReturnType<typeof changeCardsPerPage>
     | ReturnType<typeof changeSort>
-    | ReturnType<typeof changeSearchQuestion>
-    |ReturnType<typeof changeSearchAnswer>
+    | ReturnType<typeof changeSearchBy>
+
 
 export const setCards = (payload: {
     cards: CardsType[], packUserId: string, cardsPack_id: string, cardAnswer: string, cardQuestion: string, min: number, max: number, sortCards: string,
@@ -113,8 +110,12 @@ export const setCards = (payload: {
 export const setCurrentCardPage = (page: number) => ({type: "SET_CURRENT_CARDS_PAGE", page} as const)
 export const changeCardsPerPage = (pageCount: number) => ({type: "SET_CURRENT_CARDS_PER_PAGE", pageCount} as const)
 export const changeSort = (sortCards: string) => ({type: "CHANGE-SORT-TYPE", sortCards} as const)
-export const changeSearchQuestion = (question: string) => ({type: "SEARCH-CARD-BY-QUESTION", question} as const)
-export const changeSearchAnswer = (answer: string) => ({type: "SEARCH-CARD-BY-ANSWER", answer} as const)
+export const changeSearchBy = (question: string, answer: string) => ({
+    type: "SEARCH-CARD-BY",
+    question,
+    answer
+} as const)
+
 
 ////thunks
 export type ThunkType = ThunkAction<void, ReduxRootType, unknown, ActionCards>
