@@ -16,6 +16,7 @@ import SuperButton from "../../../../n1-main/m1-ui/common/c2-SuperButton/SuperBu
 import {CardsPagination} from "../x1-table/cardsItems/cardsPagination";
 import SuperSelect from "../../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
 import {AddCardModal} from "../x3-cardsModal/c1-addCardModal/AddCardModal";
+import {PackType} from "../../packs/p3-dal/packsAPI";
 
 
 export const CardsPage = () => {
@@ -36,6 +37,8 @@ export const CardsPage = () => {
     const [changeQuestion, setChangeQuestion] = useState<string>(cardQuestion)
     const [changeAnswer, setChangeAnswer] = useState<string>(cardAnswer)
     const [showAddCardModal, setShowAddCardModal] = useState<boolean>(false)
+    const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
+    const namePack = packs.find(p => p._id === id)?.name
 
     let packId = ''
     if (id) {
@@ -68,9 +71,7 @@ export const CardsPage = () => {
     return (isLoad ?
             <div className={c.preloader}/> :
             <>
-                <div className={s.addBlock}>
-                    <SuperButton onClick={openAddCardModal}>Add New Card</SuperButton>
-                </div>
+                <h2>{namePack}</h2>
                 <div className={s.searchBlock}>
                     <div className={s.inputBlock}>
                         <SuperInputText value={changeQuestion} onChangeText={setChangeQuestion}
@@ -84,6 +85,11 @@ export const CardsPage = () => {
                     </div>
                 </div>
                 <CardsTable/>
+                {userId === packUserId &&
+                    <div className={s.addBlock}>
+                        <SuperButton onClick={openAddCardModal}>Add New Card</SuperButton>
+                    </div>
+                }
                 <CardsPagination/>
                 <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
                 {showAddCardModal && <AddCardModal setShowModal={setShowAddCardModal} packId={packId}/>}

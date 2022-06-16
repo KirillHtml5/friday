@@ -16,14 +16,14 @@
 }
 
 .input {
-    width: 300px;
+    min-width: 280px;
     margin: 10px 0;
     padding: 10px;
 }
 
 .inputBlock button {
     margin: 0 10px;
-    height: 80%;
+    height: 40px;
 }
 
 .addBlock {

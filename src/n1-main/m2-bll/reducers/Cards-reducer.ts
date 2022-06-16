@@ -61,7 +61,7 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
                 ...state,
                 cards: action.payload.cards,
                 // cardsPack_id: action.payload.cardsPack_id,
-                // packUserId: action.payload.packUserId,
+                packUserId: action.payload.packUserId,
                 // sortCards: action.payload.sortCards,
                 page: action.payload.page,
                 pageCount: action.payload.pageCount,

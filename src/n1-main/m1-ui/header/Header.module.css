@@ -12,13 +12,17 @@
 .title {
     display: flex;
     justify-content: center;
-    width: 150px;
+    width: 200px;
 }
 
 .links {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.item {
+    align-self: center;
 }
 
 .item a {
@@ -38,7 +42,8 @@
 .info {
     /*display: flex;*/
     /*justify-content: center;*/
-    width: 150px;
+    /*align-items: flex-end;*/
+    width: 200px;
     text-transform: uppercase;
     position: relative;
     display: inline-block;
@@ -78,3 +83,8 @@
 .info:hover .dropdownContent {display: block;}
 
 .info:hover .dropbtn {background-color: #3e8e41;}
+
+.info img {
+    width: 64px;
+    height: 64px;
+}
