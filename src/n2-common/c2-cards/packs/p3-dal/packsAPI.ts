@@ -16,10 +16,11 @@ export const PacksAPI = {
             })
         return response.data
     },
-    addPack: async (title: string) => {
+    addPack: async (title: string, isPrivate: boolean) => {
         const response = await instance.post('cards/pack', {
             cardsPack: {
                 name: title,
+                private: isPrivate,
             }
         })
         return response.data
@@ -30,11 +31,12 @@ export const PacksAPI = {
         })
         return response.data
     },
-    updatePack: async (_id: string, name: string) => {
+    updatePack: async (_id: string, name: string, isPrivate: boolean) => {
         const response = await instance.put('cards/pack', {
             cardsPack: {
                 _id,
                 name,
+                private: isPrivate,
             }
         })
         return response.data

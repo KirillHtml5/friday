@@ -4,12 +4,12 @@ import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {ReduxRootType} from "../../m2-bll/store/ReduxStore";
 import {LogOutTC, ThunkDispatchActionType} from "../../m2-bll/reducers/Login-reducer";
+import userLogo from '../assets/userLogo.png';
 
 
 const Header = () => {
     const isLoggedIn = useSelector<ReduxRootType, boolean>(state => state.login.isLoggedIn)
-    const name = useSelector<ReduxRootType, string>(state => state.profile.user.name)
-    // const avatar = useSelector<ReduxRootType, string>(state => state.profile.user.avatar)
+    const avatar = useSelector<ReduxRootType, string>(state => state.profile.user.avatar)
     const dispatch = useDispatch<ThunkDispatchActionType>()
 
     const logoutUser = useCallback(() => {
@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <div className={s.header}>
             <div className={s.title}>
-                CARDS
+                IT-INCUBATOR
             </div>
             <div className={s.links}>
                 {isLoggedIn
@@ -54,7 +54,7 @@ const Header = () => {
             {isLoggedIn
                 ?
                 <div className={s.info}>
-                    {name}
+                    <img src={avatar ? avatar : userLogo} />
                     <div className={s.dropdownContent}>
                         <NavLink to='/'>PROFILE</NavLink>
                         <NavLink to="#" onClick={logoutUser}>LOG OUT</NavLink>
@@ -63,7 +63,6 @@ const Header = () => {
                 :
                 <div className={s.info}/>
             }
-
         </div>
     )
 }

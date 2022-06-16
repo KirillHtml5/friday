@@ -1,8 +1,9 @@
-import React, {FC} from 'react';
-import {changeCardsPerPage, deleteCard, updateCard} from "../../../../../n1-main/m2-bll/reducers/Cards-reducer";
-import {useDispatch, useSelector} from "react-redux";
+import React, {FC, useState} from 'react';
+import {useSelector} from "react-redux";
 import {ReduxRootType} from "../../../../../n1-main/m2-bll/store/ReduxStore";
 import s from '../../../packs/p1-ui/packs/PacksTable.module.css'
+import {DeleteCardModal} from "../../x3-cardsModal/c2-deleteCardModal/DeleteCardModal";
+import {UpdateCardModal} from "../../x3-cardsModal/c3-updateCardModal/UpdateCardModal";
 
 type CardsItemsType = {
     question: string
@@ -15,20 +16,17 @@ type CardsItemsType = {
 }
 
 export const CardsItem: FC<CardsItemsType> = (props) => {
-
-    const dispatch = useDispatch<any>()
-
+    const [showDeleteCardModal, setShowDeleteCardModal] = useState<boolean>(false)
+    const [showUpdateCardModal, setShowUpdateCardModal] = useState<boolean>(false)
     const myId = useSelector<ReduxRootType, string>(state => state.profile.user._id)
-    const pageCount = useSelector<ReduxRootType,number>(state => state.cards.pageCount)
 
     const {question, answer, grade, updated, cardsPack_id, id, user_id} = props
 
-    const deleteSelectCard = () => {
-        dispatch(changeCardsPerPage(pageCount))
+    const onDeleteModalHandler = () => {
+        setShowDeleteCardModal(true)
     }
-
-    const editSelectCard = () => {
-        dispatch(updateCard(cardsPack_id, id))
+    const onUpdateModalHandler = () => {
+        setShowUpdateCardModal(true)
     }
 
     return (
@@ -39,13 +37,30 @@ export const CardsItem: FC<CardsItemsType> = (props) => {
             <td>{grade}</td>
 
             <td className={s.buttonsBlock}>
-                {user_id ===  myId ?
+                {user_id === myId ?
                     <>
-                        <button onClick={editSelectCard}>Edit</button>
-                        <button onClick={deleteSelectCard}>Delete</button>
+                        <button onClick={onUpdateModalHandler}>Edit</button>
+                        <button onClick={onDeleteModalHandler}>Delete</button>
                     </> : ''
                 }
             </td>
+            {showDeleteCardModal &&
+                <DeleteCardModal
+                    setShowModal={setShowDeleteCardModal}
+                    name={question}
+                    pack_id={cardsPack_id}
+                    cardId={id}
+                />
+            }
+            {showUpdateCardModal &&
+                <UpdateCardModal
+                    setShowModal={setShowUpdateCardModal}
+                    pack_id={cardsPack_id}
+                    card_id={id}
+                    question={question}
+                    answer={answer}
+                />
+            }
         </tr>
     );
 };

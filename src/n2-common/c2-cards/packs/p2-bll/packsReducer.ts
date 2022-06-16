@@ -87,11 +87,11 @@ export const getPacks = (newPage?: number, newPageCount?: number): AppThunk => {
         dispatch(loadingAC(false))
     }
 }
-export const addPack = (title: string): AppThunk => {
+export const addPack = (title: string, isPrivate: boolean): AppThunk => {
     return async (dispatch) => {
         try {
             dispatch(loadingAC(true))
-            await PacksAPI.addPack(title)
+            await PacksAPI.addPack(title, isPrivate)
             dispatch(getPacks())
         } catch (e: any) {
             const error = e.response.data
@@ -115,10 +115,10 @@ export const deletePack = (pack_id: string): AppThunk => {
         }
     }
 }
-export const updatePack = (pack_id: string, title: string): AppThunk => {
+export const updatePack = (pack_id: string, title: string, isPrivate: boolean): AppThunk => {
     return async (dispatch) => {
         try {
-            await PacksAPI.updatePack(pack_id, title)
+            await PacksAPI.updatePack(pack_id, title, isPrivate)
             dispatch(getPacks())
         } catch (e: any) {
             const error = e.response.data

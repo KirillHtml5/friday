@@ -36,6 +36,7 @@ export const PacksTable = () => {
                                           cardsCount={p.cardsCount}
                                           createdBy={p.user_name}
                                           updated={p.updated}
+                                          isPrivate={p.private}
                 />)}
                 </tbody>
             </table>

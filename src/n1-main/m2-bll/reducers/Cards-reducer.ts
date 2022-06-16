@@ -61,7 +61,7 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
                 ...state,
                 cards: action.payload.cards,
                 // cardsPack_id: action.payload.cardsPack_id,
-                // packUserId: action.payload.packUserId,
+                packUserId: action.payload.packUserId,
                 // sortCards: action.payload.sortCards,
                 page: action.payload.page,
                 pageCount: action.payload.pageCount,
@@ -139,9 +139,9 @@ export const getCards = (cardsPack_id: string) => (dispatch: ThunkDispatchAction
         .finally(() => dispatch(loadingAC(false)))
 }
 
-export const addCard = (id: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
+export const addCard = (id: string, question: string, answer: string): ThunkType => (dispatch: ThunkDispatchActionType) => {
     dispatch(loadingAC(true))
-    CardsApi.addCard(id)
+    CardsApi.addCard(id, question, answer)
         .then(res => {
             dispatch(getCards(id))
             console.log('add', res)
@@ -155,9 +155,9 @@ export const addCard = (id: string): ThunkType => (dispatch: ThunkDispatchAction
         .finally(() => dispatch(loadingAC(false)))
 }
 
-export const updateCard = (id: string, cardId: string) => (dispatch: ThunkDispatchActionType) => {
+export const updateCard = (id: string, cardId: string, question: string, answer: string) => (dispatch: ThunkDispatchActionType) => {
     dispatch(loadingAC(true))
-    CardsApi.updateCard(cardId)
+    CardsApi.updateCard(cardId, question, answer)
         .then(res => {
             dispatch(getCards(id))
             console.log('update', res)

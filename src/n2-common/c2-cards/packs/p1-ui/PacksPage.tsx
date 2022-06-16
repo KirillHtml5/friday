@@ -17,7 +17,7 @@ import s from "../../../c1-auth/loading/loading.module.css";
 import {useNavigate} from "react-router-dom";
 import {Pagination} from "../../../k2-pagination/pagination";
 import Search from "../../../k2-search/search";
-
+import {AddPackModal} from "./modalPacks/m1-addPackModal/AddPackModal";
 
 export const PacksPage = () => {
     const isLoad = useSelector<ReduxRootType, boolean>(state => state.loading.isLoad)
@@ -52,9 +52,8 @@ export const PacksPage = () => {
         dispatch(getPacks())
     }, [packName, min, max, sortPacks, page, pageCount, cardPacksTotalCount, isMyPacks, dispatch])
 
-    const addPackHandler = () => {
-        dispatch(addPack('React'))
-    }
+    const [showAddModal, setShowAddModal] = useState<boolean>(false)
+    const showAddModalHandler = () => setShowAddModal(true)
 
     return (
         isLoad
@@ -67,7 +66,7 @@ export const PacksPage = () => {
                     <button onClick={() => dispatch(setBelonging(false))}>All packs</button>
                 </div>
                 <div style={{position: "absolute", right:25, top:105}}>
-                    <button onClick={addPackHandler}>Add Task</button>
+                    <button onClick={{showAddModalHandler}}>Add Task</button>
                 </div>
 
                 <PacksTable/>
@@ -76,6 +75,7 @@ export const PacksPage = () => {
                             pageCount={pageCount}
                             totalCount={cardPacksTotalCount}
                             setCurrentPage={setCurrentPage}/>
+                {showAddModal && <AddPackModal setShowModal={setShowAddModal}/>}
             </div>
     );
 };
