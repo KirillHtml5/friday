@@ -28,8 +28,8 @@ export const CardsApi = {
         })
             .then(res => res.data)
     },
-    updateCard(id: string) {
-        return instance.put('/cards/card', {card: {_id: id, question: '2+2', answer: '4'}})
+    updateCard(id: string, question?: string, answer?: string) {
+        return instance.put('/cards/card', {card: {_id: id, question, answer}})
             .then(res => res.data)
     },
     deleteCard(id: string) {

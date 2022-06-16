@@ -154,9 +154,9 @@ export const addCard = (id: string, question: string, answer: string): ThunkType
         .finally(() => dispatch(loadingAC(false)))
 }
 
-export const updateCard = (id: string, cardId: string) => (dispatch: ThunkDispatchActionType) => {
+export const updateCard = (id: string, cardId: string, question: string, answer: string) => (dispatch: ThunkDispatchActionType) => {
     dispatch(loadingAC(true))
-    CardsApi.updateCard(cardId)
+    CardsApi.updateCard(cardId, question, answer)
         .then(res => {
             dispatch(getCards(id))
             console.log('update', res)
