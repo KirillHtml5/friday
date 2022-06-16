@@ -2,15 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {PacksTable} from "./packs/PacksTable";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addPack,
     getPacks,
     InitPacksStateType,
     setBelonging,
     setCurrentPage,
     setError,
-    setMax,
-    setMin,
-    setPackName
 } from "../p2-bll/packsReducer";
 import {ReduxRootType} from "../../../../n1-main/m2-bll/store/ReduxStore";
 import s from "../../../c1-auth/loading/loading.module.css";
