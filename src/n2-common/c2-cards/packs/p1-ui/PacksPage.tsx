@@ -53,7 +53,7 @@ export const PacksPage = () => {
 
     return (
         isLoad
-            ? <div className={s.preloader}></div>
+            ? <div className={s.preloader}/>
             : <div style={{margin: "25px"}}>
                 <Search value={value} setValue={setValue}/>
                 {error && error}
@@ -62,7 +62,7 @@ export const PacksPage = () => {
                     <button onClick={() => dispatch(setBelonging(false))}>All packs</button>
                 </div>
                 <div style={{position: "absolute", right:25, top:105}}>
-                    <button onClick={{showAddModalHandler}}>Add Task</button>
+                    <button onClick={showAddModalHandler}>Add Task</button>
                 </div>
 
                 <PacksTable/>

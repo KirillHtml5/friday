@@ -46,13 +46,20 @@ export const CardsPage = () => {
     const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
     const namePack = packs.find(p => p._id === id)?.name
 
+    let packId = ''
+
+    if(id){
+        packId = id
+    }
+
     useEffect(() => {
         if (!isLoggedIn) {
             return navigate('/login')
         } else
             id && dispatch(getCards(id))
         dispatch(changeSearchBy(debounceQuestion, debounceAnswer))
-    }, [isLoggedIn, navigate, dispatch, cardsTotalCount, id, sortCards, cardAnswer, pageCount, page, cardQuestion, debounceAnswer, debounceQuestion])
+    }, [isLoggedIn, navigate, dispatch, cardsTotalCount,cardsSort, id,
+        sortCards, cardAnswer, pageCount, page, cardQuestion, debounceAnswer, debounceQuestion])
 
 
     const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -84,7 +91,7 @@ export const CardsPage = () => {
                 }
                 <CardsPagination/>
                 <SuperSelect value={newPageCount} options={selectRatio} onChange={changePageSize}/>
-                {showAddCardModal && <AddCardModal setShowModal={setShowAddCardModal} packId={id}/>}
+                {showAddCardModal && <AddCardModal setShowModal={setShowAddCardModal} packId={packId}/>}
 
             </div>
     )
