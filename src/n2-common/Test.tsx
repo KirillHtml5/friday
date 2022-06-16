@@ -16,7 +16,7 @@ const Test = () => {
             <SuperButton/>
             <SuperCheckbox>text</SuperCheckbox>
             {/*<Pagination/>*/}
-            <Search/>
+            {/*<Search/>*/}
             {/*<Sort/>*/}
 
         </div>

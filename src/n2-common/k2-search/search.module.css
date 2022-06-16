@@ -4,8 +4,11 @@
 }
 .input{
     padding: 5px;
-    width: 100%;
+    width: 40%;
+    margin-left: 20px;
+    margin-right: 40px;
 }
 .button{
     padding: 5px;
+    margin-left: 50px;
 }
