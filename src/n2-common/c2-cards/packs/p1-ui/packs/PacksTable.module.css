@@ -2,6 +2,7 @@
     width: 100%;
     border: none;
     margin-bottom: 20px;
+    padding-top: 15px;
 }
 
 .table thead th {
@@ -50,6 +51,7 @@
 .packName {
     cursor: pointer;
 }
-.packName:hover{
+
+.packName:hover {
     background: #cccccc;
 }

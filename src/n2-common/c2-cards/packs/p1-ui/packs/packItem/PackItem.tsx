@@ -43,16 +43,16 @@ export const PackItem: FC<PackItemPropsType> = ({
         <tr>
             <td onClick={openCardPage} className={s.packName}>{name}</td>
             <td>{cardsCount}</td>
-            <td>{updated.slice(0, 10)}</td>
+            <td>{new Date(updated).toLocaleString()}</td>
             <td>{createdBy}</td>
             <td className={s.buttonsBlock}>
                 {user_id === creator_id
                     ? <>
-                        <button onClick={openLearnPage}>Learn</button>
+                        <button onClick={openLearnPage} disabled={cardsCount === 0}>Learn</button>
                         <button onClick={updatePackHandler}>Edit</button>
                         <button onClick={deletePackHandler}>Delete</button>
                     </>
-                    : <button onClick={openLearnPage}>Learn</button>
+                    : <button onClick={openLearnPage} disabled={cardsCount === 0}>Learn</button>
 
                 }
             </td>

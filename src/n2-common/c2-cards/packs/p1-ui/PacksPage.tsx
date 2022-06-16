@@ -59,17 +59,19 @@ export const PacksPage = () => {
     return (
         isLoad
             ? <div className={s.preloader}></div>
-            : <div style={{margin: "0 auto"}}>
+            : <div style={{margin: "25px"}}>
                 <Search value={value} setValue={setValue}/>
                 {error && error}
-                <button onClick={addPackHandler}>Add Task</button>
+                <div style={{position: "absolute", right:125, top:105}}>
+                    <button onClick={() => dispatch(setBelonging(true))}>My Packs</button>
+                    <button onClick={() => dispatch(setBelonging(false))}>All packs</button>
+                </div>
+                <div style={{position: "absolute", right:25, top:105}}>
+                    <button onClick={addPackHandler}>Add Task</button>
+                </div>
+
                 <PacksTable/>
-                <button onClick={() => dispatch(setMax(12))}>MAX</button>
-                <button onClick={() => dispatch(setMin(5))}>MIN</button>
-                <button onClick={() => dispatch(setCurrentPage(2))}>PAGE</button>
-                <button onClick={() => dispatch(setPackName('at'))}>NAME</button>
-                <button onClick={() => dispatch(setBelonging(true))}>My Packs</button>
-                <button onClick={() => dispatch(setBelonging(false))}>All packs</button>
+
                 <Pagination currentPage={page}
                             pageCount={pageCount}
                             totalCount={cardPacksTotalCount}
