@@ -1,4 +1,4 @@
-import {instance} from "../../../../n1-main/m3-bll/instance";
+import {instance} from "../../../../n1-main/m3-dal/instance";
 
 export const profileApi = {
     getMe() {

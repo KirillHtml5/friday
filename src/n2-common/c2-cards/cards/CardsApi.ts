@@ -1,5 +1,4 @@
-import {CardsStateType} from "../../../n1-main/m2-bll/reducers/Cards-reducer";
-import {instance} from "../../../n1-main/m3-bll/instance";
+import {instance} from "../../../n1-main/m3-dal/instance";
 
 
 export type CardsParamsType = {
