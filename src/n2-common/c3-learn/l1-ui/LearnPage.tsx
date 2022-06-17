@@ -5,7 +5,7 @@ import s from './LearnPage.module.css';
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import {CardType} from "../l3-dal/learnAPI";
 import {useDispatch, useSelector} from "react-redux";
-import {getCards, updateGrade} from "../l2-bll/learnReducer";
+import {getCards, setCurrentCard, updateGrade} from "../l2-bll/learnReducer";
 import {ReduxRootType} from "../../../n1-main/m2-bll/store/ReduxStore";
 import {PackType} from "../../c2-cards/packs/p3-dal/packsAPI";
 import {getCard} from "../../../n3-utils/random";
@@ -24,31 +24,35 @@ export const LearnPage = () => {
     const dispatch = useDispatch<any>()
 
     const [isAnswered, setIsAnswered] = useState<boolean>(false)
-    const [grade, setGrade] = useState<number>()
-    const [card, setCard] = useState({} as CardType);
+    const [grade, setGrade] = useState<number | null>()
     const packs = useSelector<ReduxRootType, PackType[]>(state => state.packs.cardPacks)
     const cards = useSelector<ReduxRootType, CardType[]>(state => state.learn.cards)
+    const currentCard = useSelector<ReduxRootType, CardType>(state => state.learn.currentCard)
     const isFetching = useSelector<ReduxRootType, boolean>(state => state.learn.isFetching)
     const namePack = packs.find(el => el._id === packId)?.name
 
-    const closeLearnMode = () => navigate(-1)
-    const showAnswer = () => {
-        setIsAnswered(true)
-    }
-    const onNextClickHandler = async () => {
-        grade && packId && await dispatch(updateGrade(grade, card._id, packId))
-        setCard(getCard(cards))
-        setIsAnswered(false)
-    }
+    useEffect(() => {
+        if (cards.length > 0)
+            dispatch(setCurrentCard(getCard(cards)))
+    }, [dispatch, cards])
 
     useEffect(() => {
         if (packId) {
             dispatch(getCards(packId))
         }
-    }, [])
-    useEffect(() => {
-        cards.length > 0 && setCard(getCard(cards))
-    }, [cards])
+    }, [dispatch, packId]);
+
+    const closeLearnMode = () => navigate(-1)
+    const showAnswer = () => setIsAnswered(true)
+    const onNextClickHandler = () => {
+        if (grade) {
+            dispatch(updateGrade(grade, currentCard._id))
+        } else {
+            dispatch(setCurrentCard(getCard(cards)))
+        }
+        setGrade(null)
+        setIsAnswered(false)
+    }
 
     return (
         <div className={s.container}>
@@ -56,11 +60,11 @@ export const LearnPage = () => {
 
             <div className={s.questBlock}>
                 <div>
-                    <span>Question: </span>"{isFetching ? "Loading..." : card?.question}"
+                    <span>Question: </span>"{isFetching ? "Loading..." : currentCard?.question}"
                 </div>
                 {isAnswered &&
                     <div>
-                        <span>Answer: </span>"{card?.answer}"
+                        <span>Answer: </span>"{currentCard?.answer}"
                     </div>}
             </div>
 
