@@ -16,10 +16,11 @@ export const PacksAPI = {
             })
         return response.data
     },
-    addPack: async (params: CreatePackParamsType) => {
+    addPack: async (title: string, isPrivate: boolean) => {
         const response = await instance.post('cards/pack', {
             cardsPack: {
-                params
+                name: title,
+                private: isPrivate,
             }
         })
         return response.data
@@ -30,10 +31,12 @@ export const PacksAPI = {
         })
         return response.data
     },
-    updatePack: async (params: EditPackParamsType) => {
+    updatePack: async (_id: string, name: string, isPrivate: boolean) => {
         const response = await instance.put('cards/pack', {
             cardsPack: {
-                params
+                _id,
+                name,
+                private: isPrivate,
             }
         })
         return response.data
@@ -78,13 +81,4 @@ export type GetPacksParamsType = {
     pageCount?: number // optional
 
     user_id?: string // optional
-}
-export type CreatePackParamsType = {
-    name: string
-    private: boolean
-}
-export type EditPackParamsType = {
-    _id: string
-    name: string
-    private: boolean
 }

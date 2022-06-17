@@ -4,9 +4,9 @@ import {createPages} from "./pagesCreator";
 import React from "react";
 
 export type PaginationType = {
-    currentPage: number | undefined
-    totalCount: number | undefined
-    pageCount: number | undefined
+    currentPage: number
+    totalCount: number
+    pageCount: number
     setCurrentPage: (page: number) => void
 }
 
