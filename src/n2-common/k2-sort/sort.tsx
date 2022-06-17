@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {getPacks, setSortPacks} from "../c2-cards/packs/p2-bll/packsReducer";
+import {getPacksTC, setSortPacks} from "../c2-cards/packs/p2-bll/packsReducer";
 
 
 const Sort: React.FC = () => {
@@ -10,7 +10,7 @@ const Sort: React.FC = () => {
     const sortPrice = (x: number) => {
         setSort(x);
         dispatch(setSortPacks(x + 'cardsCount'));
-        dispatch(getPacks());
+        dispatch(getPacksTC());
     };
 
     return (
