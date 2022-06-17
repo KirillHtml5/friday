@@ -46,7 +46,7 @@ export const CardsPage = () => {
 
     let packId = ''
 
-    if(id){
+    if (id) {
         packId = id
     }
 
@@ -55,15 +55,18 @@ export const CardsPage = () => {
             return navigate('/login')
         } else
             id && dispatch(getCards(id))
-        dispatch(changeSearchBy(debounceQuestion, debounceAnswer))
-    }, [isLoggedIn, navigate, dispatch, id,sortCards,
-        cardAnswer, pageCount, page, cardQuestion, debounceAnswer, debounceQuestion])
+    }, [isLoggedIn, navigate, dispatch, id, sortCards,
+        cardAnswer, pageCount, page, cardQuestion])
 
+    useEffect(() => {
+        dispatch(changeSearchBy(debounceQuestion, debounceAnswer))
+    }, [debounceQuestion, debounceAnswer])
 
     const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
         setNewPageCount(+e.currentTarget.value)
         dispatch(changeCardsPerPage(+e.currentTarget.value))
     }
+
     const openAddCardModal = () => {
         setShowAddCardModal(true)
     }
