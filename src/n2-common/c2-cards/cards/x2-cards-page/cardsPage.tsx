@@ -32,12 +32,10 @@ export const CardsPage = () => {
         sortCards,
         cardAnswer,
         cardQuestion,
-        cardsTotalCount
     } = useSelector<ReduxRootType, CardsStateType>(state => state.cards)
     const {id} = useParams()
     const selectRatio = [5, 10, 15]
     const [newPageCount, setNewPageCount] = useState(pageCount)
-    const cardsSort = useSelector<ReduxRootType, string>(state => state.cards.sortCards)
     const [changeQuestion, setChangeQuestion] = useState<string>(cardQuestion)
     const [changeAnswer, setChangeAnswer] = useState<string>(cardAnswer)
     const debounceQuestion = useDebounce(changeQuestion, 1500)
@@ -58,8 +56,8 @@ export const CardsPage = () => {
         } else
             id && dispatch(getCards(id))
         dispatch(changeSearchBy(debounceQuestion, debounceAnswer))
-    }, [isLoggedIn, navigate, dispatch, cardsTotalCount,cardsSort, id,
-        sortCards, cardAnswer, pageCount, page, cardQuestion, debounceAnswer, debounceQuestion])
+    }, [isLoggedIn, navigate, dispatch, id,sortCards,
+        cardAnswer, pageCount, page, cardQuestion, debounceAnswer, debounceQuestion])
 
 
     const changePageSize = (e: ChangeEvent<HTMLSelectElement>) => {

@@ -1,6 +1,6 @@
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ReduxRootType} from "../store/ReduxStore";
-import {CardsApi} from "../../../n2-common/c2-cards/cards/CardsApi";
+import {CardsApi, CardsParamsType} from "../../../n2-common/c2-cards/cards/CardsApi";
 import {setErrorAC, setErrorACType} from "./Error-reducer";
 import {loadingAC, loadingACType} from "../../../n2-common/c1-auth/loading/bll/loadingReducer";
 
@@ -58,18 +58,7 @@ export const CardsReducer = (state = initState, action: ActionCards): CardsState
     switch (action.type) {
         case 'SET-CARDS': {
             return {
-                ...state,
-                cards: action.payload.cards,
-                // cardsPack_id: action.payload.cardsPack_id,
-                packUserId: action.payload.packUserId,
-                // sortCards: action.payload.sortCards,
-                page: action.payload.page,
-                pageCount: action.payload.pageCount,
-                max: action.payload.max,
-                min: action.payload.min,
-                // cardAnswer: action.payload.cardAnswer,
-                // cardQuestion: action.payload.cardQuestion,
-                cardsTotalCount: action.payload.cardsTotalCount
+                ...state,...action.payload
             }
         }
         case "SET_CURRENT_CARDS_PER_PAGE": {
@@ -101,10 +90,7 @@ export type ActionCards =
     | ReturnType<typeof changeSearchBy>
 
 
-export const setCards = (payload: {
-    cards: CardsType[], packUserId: string, cardsPack_id: string, cardAnswer: string, cardQuestion: string, min: number, max: number, sortCards: string,
-    page: number, pageCount: number, cardsTotalCount: number
-}) => ({
+export const setCards = (payload: CardsParamsType) => ({
     type: 'SET-CARDS', payload
 } as const)
 export const setCurrentCardPage = (page: number) => ({type: "SET_CURRENT_CARDS_PAGE", page} as const)
